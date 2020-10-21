@@ -1,9 +1,3 @@
----
-title: 反子弹之弟的第一篇技术分享——Git指令与Github的使用
-date: 2020-10-19 10:32:25
-tags: Git 
----
-
 本文旨在给第一次使用 git 和 github 的同学提供快速的学习指引，分享我在学习中用到的资源及我对每一个步骤的个人理解。本文基于 Ubuntu 18.04 LTS 系统环境安装git。这是我的第一篇博文，给自己打气！思远  Fighting ！
 
 # Git入门与实践
@@ -12,7 +6,7 @@ Git是分布式版本控制系统，简单来说，git将自动帮助开发者�
 
 GitHub是用于版本控制和协作的代码托管平台，他支持开发者可以该平台共同处理研发项目。
 
-git简明指南：[https://www.runoob.com/manual/git-guide/]()
+git简明指南：[](https://www.runoob.com/manual/git-guide/)
 
 
 
@@ -22,8 +16,8 @@ git简明指南：[https://www.runoob.com/manual/git-guide/]()
 
 1. 创建新文件夹，输入 `git init` 创建新版本库
 
-   ```bash
-   $ cd /home/fangsiyuan/Documents
+   ```shell
+   ~$ cd /home/fangsiyuan/Documents
    cd fsygit
    git init
    Initialized empty Git repository in /home/fangsiyuan/Documents/fsygit/.git/
@@ -34,10 +28,10 @@ git简明指南：[https://www.runoob.com/manual/git-guide/]()
    > 你的本地仓库由 git 维护的三棵“树”组成。第一个是你的 `工作目录`，它持有实际文件；第二个是 `暂存区（Index）`，它像个缓存区域，临时保存你的改动；最后是 `HEAD`，它指向你最后一次提交的结果。
 
    ![img](https://www.runoob.com/manual/git-guide/img/trees.png)
-
+   
    执行  `commit`  系统提示 `*** Please tell me who you are.` 。这个错误是因为在创建git文件夹的时候信息不完善导致的，需执行以下命令：
-
-   ```bash
+   
+   ```shell
    git config --global user.email "你的邮箱"
    git config --global user.name "你的名字"
    ```
@@ -50,17 +44,15 @@ Git命令均是在本地执行，若想要开源则需要将数据放到其他�
 
 1. 首先 Git 与 Github 间由SSH加密传输，所以我们需要配置验证信息：
 
-   ```bash
+   ```shell
    $ ssh-keygen -t rsa -C "youremail@example.com"
    ```
-   
-   
 
 复制在根目录下生成的**.ssh/id_rsa.pub** 文件里的**key**, 打开个人github里的**Settings -> SSH and GPG keys -> New SSH key**， 设置标题并将key粘贴。
 
 2. 点击 **create repository** 按照指示新建个人仓库，创建完后如下图所示。
 
-<img src="/home/fangsiyuan/.config/Typora/typora-user-images/image-20201019111508157.png" alt="image-20201019111508157" style="zoom:50%;" />
+<img src="/home/fangsiyuan/.config/Typora/typora-user-images/image-20201015153541159.png" alt="image-20201015153541159" style="zoom:150%;" />
 
 
 
@@ -68,13 +60,13 @@ Git命令均是在本地执行，若想要开源则需要将数据放到其他�
 
 我们已经使用add和commit指令更改了仓库，现在需要执行如下命令把改动提交到远端仓库：
 
-```bash
+```shell
 git push origin master
 ```
 
 如果你还没有克隆现有仓库。并且想要将仓库连接到某个远程服务器，你可以使用如下命令：
 
-```bash
+```shell
 git remote add origin <server>
 ```
 
@@ -90,7 +82,7 @@ git remote add origin <server>
 
 通常在本地仓库可对分支进行以下指令操作：
 
-```bash
+```shell
 git checkout -b feature_x                   #创建叫feature_x的分支，并切换过去 
 git checkout master                         #切换回主分支（branch）
 git branch -d feature_x                     #删除叫feature_x的分支
@@ -99,3 +91,24 @@ git push origin <branch>                    #将分支推送到远端仓库
 
 
 
+## 推送改动
+
+当你在本地仓库对代码或文档进行了修改想要提交到远端的github仓库时，你需要用到如下语句：
+
+```bash
+git push origin master                     #可以把master替换成任何你想要推送的分支
+```
+
+如果你没有 `git clone`  某个仓库，并且想要将你的本地仓库连接到某个远程服务器，你可以使用如下命令添加：
+
+```bash
+git remote add origin <server>
+```
+
+
+
+## 更新与合并
+
+`git pull`  执行后将会把你的远程仓库更新至最新改动，这个指令将同时（fetch、merge）远端的改动。
+
+`git merge <branch>`  执行后将合并其他分支到你的当前分支。
