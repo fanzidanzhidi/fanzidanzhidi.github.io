@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="恢复误删仓库branch, IoT ESP Linux C++">
+    <meta name="keywords" content="恢复误删的仓库分支, IoT ESP Linux C++">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,8 +16,8 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>恢复误删仓库branch | Welcome to fsy&#39;s harbour</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/medias/favcion.ico">
+    <title>恢复误删的仓库分支 | Welcome to fsy&#39;s harbour</title>
+    <link rel="icon" type="image/png" href="/favcion">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
@@ -313,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">恢复误删仓库branch</h1>
+                    <h1 class="description center-align post-title">恢复误删的仓库分支</h1>
                 </div>
             </div>
         </div>
@@ -467,7 +467,13 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>啊啊啊啊</p>
+                <p>这篇文章的背景是基于我在初学git时想要整理我的hexo博客代码并同步合并到Github里。我失误的删除了用作备份的hexo分支，以至于所有的数据、写的md博文全都在本地和远程仓库里消失了。万幸git提供了recover的方式恢复之前删除的branch，那究竟如何操作呢？</p>
+<h1 id="恢复Github的Branch"><a href="#恢复Github的Branch" class="headerlink" title="恢复Github的Branch"></a>恢复Github的Branch</h1><p>Step1：使用 <code>git log -g</code>  语句显示之前commit提交操作的日志记录，并复制你想恢复的那一版本的<code>commit_id</code> (commit 后那一长串字符）:</p>
+<p><img src="https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201022142857.png"></p>
+<p>Step2：使用 <code>git branch recover_branch_分支名 commit_id</code>  创建新分支。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> branch recover_branch_abc f617c76472e7d6c06703aa82c10a71e996c7aef2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这一步将会把你想要恢复的文件全都恢复到新分支</p>
+<p>Step3：切换到新分支，检查文件是否存在</p>
 
             </div>
             <hr/>
@@ -627,9 +633,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="恢复误删仓库branch">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="恢复误删的仓库分支">
                         
-                        <span class="card-title">恢复误删仓库branch</span>
+                        <span class="card-title">恢复误删的仓库分支</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
