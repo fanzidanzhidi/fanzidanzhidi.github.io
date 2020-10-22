@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title></title>
+      <link href="2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/"/>
+      <url>2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/"/>
+      <url>2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/"/>
+      <url>2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/"/>
+      <url>2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/</url>
+      
+        <content type="html"><![CDATA[<h1 id="ESP学习笔记（一）使用VS-Code快捷键开发"><a href="#ESP学习笔记（一）使用VS-Code快捷键开发" class="headerlink" title="ESP学习笔记（一）使用VS Code快捷键开发"></a>ESP学习笔记（一）使用VS Code快捷键开发</h1><p>根据该教程，用户可在VS Code里快速地对ESP32开发板进行编译烧录等操作。</p><h3 id="Step1：VS-Code任务配置"><a href="#Step1：VS-Code任务配置" class="headerlink" title="Step1：VS Code任务配置"></a>Step1：VS Code任务配置</h3><ul><li>按下 <code>Crtl+Shift+P</code> 并键入 <code>Tasks:Configure Task</code></li><li>选择使用模版新建 <code>tasks.json</code> 文件，选择 <code>others</code></li><li>复制如下ESP32任务配置模版（包含编辑、下载、清除编译/Flash、打开monitor、打开menuconfig等）</li></ul><pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>    // See https<span class="token operator">:</span>//go.microsoft.com/fwlink/?LinkId=<span class="token number">733558</span>    // for the documentation about the tasks.json format    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"2.0.0"</span><span class="token punctuation">,</span>    <span class="token property">"tasks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>        <span class="token punctuation">{</span>            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"build app"</span><span class="token punctuation">,</span> // f5            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8"</span><span class="token punctuation">,</span>            <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">{</span>                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"build"</span><span class="token punctuation">,</span>                <span class="token property">"isDefault"</span><span class="token operator">:</span> <span class="token boolean">true</span>            <span class="token punctuation">}</span>        <span class="token punctuation">}</span><span class="token punctuation">,</span>        <span class="token punctuation">{</span>            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"flash app"</span><span class="token punctuation">,</span> // f6            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8 flash"</span>        <span class="token punctuation">}</span><span class="token punctuation">,</span>        <span class="token punctuation">{</span>            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"monitor"</span><span class="token punctuation">,</span> // f7            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make monitor"</span>        <span class="token punctuation">}</span><span class="token punctuation">,</span>        <span class="token punctuation">{</span>            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"clean app"</span><span class="token punctuation">,</span> // f8            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make clean"</span><span class="token punctuation">,</span>        <span class="token punctuation">}</span><span class="token punctuation">,</span>        <span class="token punctuation">{</span>            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span><span class="token punctuation">,</span> // f9            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make erase_flash"</span><span class="token punctuation">,</span>        <span class="token punctuation">}</span><span class="token punctuation">,</span>        <span class="token punctuation">{</span>            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span><span class="token punctuation">,</span> // f10            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make menuconfig"</span>        <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token punctuation">]</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><strong>任务配置步骤如下所示</strong>：</p><img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-1.gif" alt="vscode-esp32-1" style="zoom:100%;"><h3 id="Step2：增-加快捷键"><a href="#Step2：增-加快捷键" class="headerlink" title="Step2：增%加快捷键"></a>Step2：增%加快捷键</h3><ul><li><p>按下：<code>Ctrl+Shift+P</code> </p></li><li><p>键入 <code>Preferences:Open Keyboard Shortcuts(JSON)</code></p></li><li><p>填充如下参数</p><pre class="line-numbers language-json"><code class="language-json">// Override key bindings by placing them into your key bindings file.<span class="token punctuation">[</span>    <span class="token punctuation">{</span>        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f5"</span><span class="token punctuation">,</span>        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"build app"</span>    <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token punctuation">{</span>        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f6"</span><span class="token punctuation">,</span>        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"flash app"</span>    <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token punctuation">{</span>        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f7"</span><span class="token punctuation">,</span>        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"monitor"</span>    <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token punctuation">{</span>        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f8"</span><span class="token punctuation">,</span>        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"clean app"</span>    <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token punctuation">{</span>        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f9"</span><span class="token punctuation">,</span>        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span>    <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token punctuation">{</span>        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f10"</span><span class="token punctuation">,</span>        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span>    <span class="token punctuation">}</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>于是，我们就可以对所选工程进行快捷键开发：</p></li></ul><table><thead><tr><th align="center">快捷键</th><th align="center">执行的命令</th><th align="center">功能</th></tr></thead><tbody><tr><td align="center">F5</td><td align="center"><code>make -j8</code></td><td align="center">编译</td></tr><tr><td align="center">F6</td><td align="center"><code>make -j8 flash</code></td><td align="center">编译、下载</td></tr><tr><td align="center">F7</td><td align="center"><code>make monitor</code></td><td align="center">监视器</td></tr><tr><td align="center">F8</td><td align="center"><code>make clean</code></td><td align="center">清除编译</td></tr><tr><td align="center">F9</td><td align="center"><code>make erase_flash</code></td><td align="center">擦除 flash</td></tr><tr><td align="center">F10</td><td align="center"><code>make menuconfig</code></td><td align="center">打开 menuconfig</td></tr></tbody></table><blockquote><p>NOTE: 这些命令都应该在工程的 <code>main</code> 目录下的文件中执行，例如： 在 VS Code 中打开了 hello_world 工程中 main 目录下的 <code>hello_world_main.c</code> 文件，可以按快捷键 <code>F6</code> 进行编译、下载。暂不支持在其他目录下进行。</p></blockquote><p>详细配置过程：</p><img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-2.gif" alt="vscode-esp32-2" style="zoom:100%;">]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%B8%E8%A7%81%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8Alist/"/>
+      <url>2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%B8%E8%A7%81%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8Alist/</url>
+      
+        <content type="html"><![CDATA[<h1 id="ESP学习笔记（二）常见名词解释list"><a href="#ESP学习笔记（二）常见名词解释list" class="headerlink" title="ESP学习笔记（二）常见名词解释list"></a>ESP学习笔记（二）常见名词解释list</h1><p>对于初学的开发者来说，面对官方文档里各种大写英文的技术词汇十分头大，想要学习却无法第一时间get到这个词是什么意思、用在什么场景。这篇文章将会直观的以表格的形式汇总我在学习ESP32开发的过程中遇到的所有问题。</p><table><thead><tr><th align="center">序号</th><th align="center">名词</th><th align="center">解释</th></tr></thead><tbody><tr><td align="center">1</td><td align="center">ESP32</td><td align="center">Espressif公司推出的Wi-Fi蓝牙集成模组</td></tr><tr><td align="center">2</td><td align="center">GPIO &amp; RTC GPIO</td><td align="center"></td></tr><tr><td align="center">3</td><td align="center">UART</td><td align="center"></td></tr><tr><td align="center">4</td><td align="center">ADC</td><td align="center"></td></tr><tr><td align="center">5</td><td align="center">DAC</td><td align="center"></td></tr><tr><td align="center">6</td><td align="center">I2C</td><td align="center"></td></tr><tr><td align="center">7</td><td align="center">I2S</td><td align="center"></td></tr><tr><td align="center">8</td><td align="center">SPI - SPI Master</td><td align="center"></td></tr><tr><td align="center">9</td><td align="center">SPI - SPI Slave</td><td align="center"></td></tr><tr><td align="center">10</td><td align="center">Timer</td><td align="center"></td></tr><tr><td align="center">11</td><td align="center">LED Control</td><td align="center"></td></tr><tr><td align="center">12</td><td align="center">MCPWM</td><td align="center"></td></tr><tr><td align="center">13</td><td align="center">Pulse Counter</td><td align="center"></td></tr><tr><td align="center">14</td><td align="center">Sigma-delta Modulation</td><td align="center"></td></tr><tr><td align="center">15</td><td align="center">Touch Sensor</td><td align="center"></td></tr><tr><td align="center">16</td><td align="center">Over The Air Updates(OTA)</td><td align="center"></td></tr><tr><td align="center">17</td><td align="center">SDMMC Host Driver</td><td align="center"></td></tr><tr><td align="center">18</td><td align="center">Vitual filesystem</td><td align="center"></td></tr><tr><td align="center">19</td><td align="center">HIgh Resolution Timer</td><td align="center"></td></tr><tr><td align="center">20</td><td align="center">RTC和低功耗管理</td><td align="center"></td></tr><tr><td align="center">21</td><td align="center">电源管理</td><td align="center"></td></tr><tr><td align="center">22</td><td align="center">睡眠模式</td><td align="center"></td></tr><tr><td align="center">23</td><td align="center">看门狗</td><td align="center"></td></tr><tr><td align="center">24</td><td align="center">SPIFFS文件系统</td><td align="center"></td></tr><tr><td align="center">25</td><td align="center">脉冲计数器</td><td align="center"></td></tr><tr><td align="center">26</td><td align="center">NVS</td><td align="center"></td></tr></tbody></table>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux指令学习</title>
+      <link href="2020/10/21/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/"/>
+      <url>2020/10/21/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux指令学习——基础篇"><a href="#Linux指令学习——基础篇" class="headerlink" title="Linux指令学习——基础篇"></a>Linux指令学习——基础篇</h1><p>Linux（Ubuntu）作为开发者常用的操作系统，经查会用到命令行完成一系列开发，因此对于linux指令的语法学习是非常基础而又必要的。本篇主要介绍一些最基本最常用的Linux指令。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git和github初步学习</title>
+      <link href="2020/10/21/git%E5%92%8Cgithub%E5%88%9D%E6%AD%A5%E5%AD%A6%E4%B9%A0/"/>
+      <url>2020/10/21/git%E5%92%8Cgithub%E5%88%9D%E6%AD%A5%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<p>本文旨在给第一次使用 git 和 github 的同学提供快速的学习指引，分享我在学习中用到的资源及我对每一个步骤的个人理解。本文基于 Ubuntu 18.04 LTS 系统环境安装git。这是我的第一篇博文，给自己打气！思远  Fighting ！</p><h1 id="Git入门与实践"><a href="#Git入门与实践" class="headerlink" title="Git入门与实践"></a>Git入门与实践</h1><p>Git是分布式版本控制系统，简单来说，git将自动帮助开发者记录版本变动信息并直观呈现。</p><p>GitHub是用于版本控制和协作的代码托管平台，他支持开发者可以该平台共同处理研发项目。</p><p>git简明指南：<a href="https://www.runoob.com/manual/git-guide/"></a></p><h2 id="创建版本库及文件的添加"><a href="#创建版本库及文件的添加" class="headerlink" title="创建版本库及文件的添加"></a>创建版本库及文件的添加</h2><blockquote><p>版本库又名仓库，英文名 <strong>repository</strong>，可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。git 只能跟踪文本文件的改动，比如TXT文件，网页，所有的程序代码。</p></blockquote><ol><li><p>创建新文件夹，输入 <code>git init</code> 创建新版本库</p><pre class="line-numbers language-shell"><code class="language-shell">~$ cd /home/fangsiyuan/Documentscd fsygitgit initInitialized empty Git repository in /home/fangsiyuan/Documents/fsygit/.git/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li><li><p><code> git add</code> 添加文件至仓库，<code>git commit -m "代码提交信息"</code>  需要注意：所需添加的文件需在仓库目录里。</p><blockquote><p>你的本地仓库由 git 维护的三棵“树”组成。第一个是你的 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p></blockquote><p><img src="https://www.runoob.com/manual/git-guide/img/trees.png" alt="img"></p><p>执行  <code>commit</code>  系统提示 <code>*** Please tell me who you are.</code> 。这个错误是因为在创建git文件夹的时候信息不完善导致的，需执行以下命令：</p><pre class="line-numbers language-shell"><code class="language-shell">git config --global user.email "你的邮箱"git config --global user.name "你的名字"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li></ol><h2 id="本地仓库连接远程仓库"><a href="#本地仓库连接远程仓库" class="headerlink" title="本地仓库连接远程仓库"></a>本地仓库连接远程仓库</h2><p>Git命令均是在本地执行，若想要开源则需要将数据放到其他开发人员能够连接的服务器上，我们选择Github作为远程仓库。</p><ol><li><p>首先 Git 与 Github 间由SSH加密传输，所以我们需要配置验证信息：</p><pre class="line-numbers language-shell"><code class="language-shell">$ ssh-keygen -t rsa -C "youremail@example.com"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ol><p>复制在根目录下生成的**.ssh/id_rsa.pub** 文件里的<strong>key</strong>, 打开个人github里的<strong>Settings -&gt; SSH and GPG keys -&gt; New SSH key</strong>， 设置标题并将key粘贴。</p><ol start="2"><li>点击 <strong>create repository</strong> 按照指示新建个人仓库，创建完后如下图所示。</li></ol><p><img src="https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201021193818.png"></p><h2 id="提取、推送到远程仓库"><a href="#提取、推送到远程仓库" class="headerlink" title="提取、推送到远程仓库"></a>提取、推送到远程仓库</h2><p>我们已经使用add和commit指令更改了仓库，现在需要执行如下命令把改动提交到远端仓库：</p><pre class="line-numbers language-shell"><code class="language-shell">git push origin master<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果你还没有克隆现有仓库。并且想要将仓库连接到某个远程服务器，你可以使用如下命令：</p><pre class="line-numbers language-shell"><code class="language-shell">git remote add origin <server><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="Branch分支"><a href="#Branch分支" class="headerlink" title="Branch分支"></a>Branch分支</h2><blockquote><p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，<em>master</em> 是“默认的”分支。在其他分支上进行开发，完成后再将它们合并到主分支上。</p></blockquote><p>在我的理解里，正是分支的存在让一个不断迭代的应用或者仓库可以有序的、有迹可循的多人协作开发，不同的分支体现了不同版本的迭代过程且最后统一到master上。</p><p><img src="https://www.runoob.com/manual/git-guide/img/branches.png" alt="img"></p><p>通常在本地仓库可对分支进行以下指令操作：</p><pre class="line-numbers language-shell"><code class="language-shell">git checkout -b feature_x                   #创建叫feature_x的分支，并切换过去 git checkout master                         #切换回主分支（branch）git branch -d feature_x                     #删除叫feature_x的分支git push origin <branch>                    #将分支推送到远端仓库<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h2 id="推送改动"><a href="#推送改动" class="headerlink" title="推送改动"></a>推送改动</h2><p>当你在本地仓库对代码或文档进行了修改想要提交到远端的github仓库时，你需要用到如下语句：</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> push origin master                     <span class="token comment" spellcheck="true">#可以把master替换成任何你想要推送的分支</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>如果你没有 <code>git clone</code>  某个仓库，并且想要将你的本地仓库连接到某个远程服务器，你可以使用如下命令添加：</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> remote add origin <span class="token operator">&lt;</span>server<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h2><p><code>git pull</code>  执行后将会把你的远程仓库更新至最新改动，这个指令将同时（fetch、merge）远端的改动。</p><p><code>git merge &lt;branch&gt;</code>  执行后将合并其他分支到你的当前分支。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Ubuntu&amp;Github入门学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Github </tag>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Github同步文件时子仓库无法打开的解决方案</title>
+      <link href="2020/10/19/github%E5%90%8C%E6%AD%A5%E6%97%B6%E5%AD%90%E4%BB%93%E5%BA%93%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+      <url>2020/10/19/github%E5%90%8C%E6%AD%A5%E6%97%B6%E5%AD%90%E4%BB%93%E5%BA%93%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      
+        <content type="html"><![CDATA[<p>本文主要介绍在使用hexo+Ubuntu18.04LTS+github pages 制作个人blog方案时遇到的子文件夹无法打开的解决方案。</p><h2 id="Github同步文件时子仓库无法打开的解决方案"><a href="#Github同步文件时子仓库无法打开的解决方案" class="headerlink" title="Github同步文件时子仓库无法打开的解决方案"></a>Github同步文件时子仓库无法打开的解决方案</h2><h3 id="报错背景"><a href="#报错背景" class="headerlink" title="报错背景"></a>报错背景</h3><p>在使用<strong>hexo</strong>制作博客时尝尝需要使用别人自制的模版，于是乎我们要跑到人家的仓库里去clone或者fork到自己的博客仓库里，等我们兴高采烈的做完自己博客，想要同步 <strong>git add</strong> 到自己的仓库时，却发现themes里的那个主题文件夹上面有个小箭头，并且我们在github上打不开那个文件夹。</p><p><img src="https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201021193930.png"></p><p><img src="https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201021193956.png"></p><h3 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h3><blockquote><p>在 GitHub 上看到的将是一个灰色的图标，代表这是一个子模块，但是不知道这个子模块的仓库所在的 url，因此在 GitHub 上无法打开这个文件夹。</p></blockquote><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>Step1: cd到子文件夹所在目录，删除已经staged的文件，文件夹为无法打开的子仓库</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">rm</span> -r --cached <span class="token string">"文件夹的名称"</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>Step2: 重新stage这个文件夹</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> add themes/文件夹的名称/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>注意： 最后一定要加 <code>/</code> ，表示加入这个文件夹而非作为子模块</p><p>Step3：重新git add、commit、push仓库至github</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>基于hexo在ubuntu上构建个人博客</title>
+      <link href="2020/10/19/%E5%9F%BA%E4%BA%8Ehexo%E5%9C%A8ubuntu%E4%B8%8A%E6%9E%84%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+      <url>2020/10/19/%E5%9F%BA%E4%BA%8Ehexo%E5%9C%A8ubuntu%E4%B8%8A%E6%9E%84%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<p>Github虽有readme提供导读，但终归不是个人博客的形式，因此我在思考如何将markdown语句写成的技术文档轻松地转换成方便阅读的Html格式，并搭建自己的技术金字塔博客。</p><h1 id="基于hexo在ubuntu上构建个人博客"><a href="#基于hexo在ubuntu上构建个人博客" class="headerlink" title="基于hexo在ubuntu上构建个人博客"></a>基于hexo在ubuntu上构建个人博客</h1><p><strong>hexo</strong> 是一个台湾的大学生写的静态网页框架，好用简单，因此本次选用 <strong>hexo</strong> 搭配 <strong>Github Pages</strong> 完成个人博客网站的制作。</p><h4 id="一-安装-hexo-及依赖组件"><a href="#一-安装-hexo-及依赖组件" class="headerlink" title="一. 安装 hexo 及依赖组件"></a>一. 安装 <strong>hexo</strong> 及依赖组件</h4><p>在使用 <strong>hexo</strong> 前需要确保Github个人账户已完成SSH密钥设定，且已按照之前博客完成了对于git的安装和学习，一切都准备就绪后咱们首先安装 <strong>npm</strong> 及 <strong>Node.js</strong> ：</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nodejs<span class="token function">sudo</span> apt <span class="token function">install</span> <span class="token function">npm</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>接着安装 <strong>hexo</strong>：</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g hexo-cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>我在安装时报错，经查跟 <strong>npm</strong> 源有关, 于是我改用 <strong>cnpm</strong> 进行安装，并且使用管理员权限：</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> -g cnpm --registry<span class="token operator">=</span>https://registry.npm.taobao.org<span class="token function">sudo</span> cnpm <span class="token function">install</span> hexo-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h4 id="二-将hexo部署至Github"><a href="#二-将hexo部署至Github" class="headerlink" title="二. 将hexo部署至Github"></a>二. 将hexo部署至Github</h4>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
