@@ -12,9 +12,11 @@ tags: Github
 
 在使用**hexo**制作博客时尝尝需要使用别人自制的模版，于是乎我们要跑到人家的仓库里去clone或者fork到自己的博客仓库里，等我们兴高采烈的做完自己博客，想要同步 **git add** 到自己的仓库时，却发现themes里的那个主题文件夹上面有个小箭头，并且我们在github上打不开那个文件夹。
 
-![image-20201019162539324](/home/fangsiyuan/.config/Typora/typora-user-images/image-20201019162539324.png)
+![](https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201021193930.png)
 
-![image-20201019162658722](/home/fangsiyuan/.config/Typora/typora-user-images/image-20201019162658722.png)
+![](https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201021193956.png)
+
+
 
 ### 报错原因
 

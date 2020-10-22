@@ -1,10 +1,10 @@
-title: 反子弹之弟的blog
-subtitle: ''
+title: Welcome to fsy's harbour
+subtitle: '反子弹之弟的blog'
 description: ''
-keywords: null
-author: zzk 's fsy
+keywords: IoT ESP Linux C++
+author: zzk-fsy
 language: zh-CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 url: 'https://fanzidanzhidi.github.io/'
 root: /
 permalink: ':year/:month/:day/:title/'
@@ -29,7 +29,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -62,6 +62,15 @@ pagination_dir: page
 include: null
 exclude: null
 ignore: null
+search:
+  path: search.xml
+  field: post
+githubEmojis:
+  enable: true
+  className: github-emoji
+  inject: true
+  styles:
+  customEmojis:
 theme: hexo-theme-matery
 deploy:
   type: git
