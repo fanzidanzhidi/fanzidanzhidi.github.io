@@ -343,11 +343,20 @@
                 
                 
                 
-                <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" title="Ubuntu&Github入门学习: 1">
+                <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" title="Ubuntu&Github入门学习: 5">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             style="background-color: #F9EBEA;">Ubuntu&Github入门学习
-                        <span class="tag-length">1</span>
+                        <span class="tag-length">5</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="ESP学习笔记: 5">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #F5EEF8;">ESP学习笔记
+                        <span class="tag-length">5</span>
                     </span>
                 </a>
                 
@@ -377,19 +386,19 @@
                 </a>
                 
                 
-                <a href="/tags/Github/" title="Github: 2">
+                <a href="/tags/Git/" title="Git: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Github" style="background-color: #F5EEF8;">Github
+                            data-tagname="Git" style="background-color: #F5EEF8;">Git
                         <span class="tag-length">2</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Git/" title="Git: 2">
+                <a href="/tags/Github/" title="Github: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Git" style="background-color: #D5F5E3;">Git
+                            data-tagname="Github" style="background-color: #D5F5E3;">Github
                         <span class="tag-length">2</span>
                     </span>
                 </a>
@@ -400,6 +409,15 @@
                              chip-default "
                             data-tagname="hexo" style="background-color: #E8F8F5;">hexo
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/ESP/" title="ESP: 5">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="ESP" style="background-color: #FEF9E7;">ESP
+                        <span class="tag-length">5</span>
                     </span>
                 </a>
                 
@@ -444,7 +462,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"Ubuntu&Github入门学习","max":2}],
+            indicator: [{"name":"Ubuntu&Github入门学习","max":10},{"name":"ESP学习笔记","max":10}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -455,7 +473,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1],
+                    value : [5,5],
                     name : '文章分类数量'
                 }
             ]
@@ -568,7 +586,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Ubuntu&Github入门学习","value":1}],
+                data: [{"name":"Ubuntu&Github入门学习","value":5},{"name":"ESP学习笔记","value":5}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -592,7 +610,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["Github","Git","Linux","hexo"]
+                data: ["ESP","Git","Github","Linux","hexo"]
             }
         ],
         yAxis: [
@@ -605,7 +623,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [2,2,1,1],
+                data: [5,2,2,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{

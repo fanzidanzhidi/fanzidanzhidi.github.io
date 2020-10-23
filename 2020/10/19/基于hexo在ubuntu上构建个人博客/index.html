@@ -422,6 +422,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                Ubuntu&Github入门学习
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -455,7 +464,21 @@
 <p>我在安装时报错，经查跟 <strong>npm</strong> 源有关, 于是我改用 <strong>cnpm</strong> 进行安装，并且使用管理员权限：</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> -g cnpm --registry<span class="token operator">=</span>https://registry.npm.taobao.org
 <span class="token function">sudo</span> cnpm <span class="token function">install</span> hexo-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="二-将hexo部署至Github"><a href="#二-将hexo部署至Github" class="headerlink" title="二. 将hexo部署至Github"></a>二. 将hexo部署至Github</h4>
+<h4 id="二-将hexo部署至Github"><a href="#二-将hexo部署至Github" class="headerlink" title="二. 将hexo部署至Github"></a>二. 将hexo部署至Github</h4><h4 id="使用picgo搭建图床"><a href="#使用picgo搭建图床" class="headerlink" title="使用picgo搭建图床"></a>使用picgo搭建图床</h4><p>部署完网页后，使用 <code>hexo clean hexo g hexo d </code>  三连生成远端博客。我发现用.md文件里用在线链接复制的图片都正常显示，而本地路径复制的图片都无法正常显示。经过学习，我发现解决方案都十分的复杂，还需要做很多复制操作。直到图床这个概念进入我的视线。</p>
+<p><strong>图床能干啥？</strong></p>
+<p>官方叫开源图片管理系统，民间理解就是个在网络上存储图片的地方，可以方便在你的博文里调用，加快图片打开速度。常见的图床如下所示：</p>
+<img src="https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201022174155.png" style="zoom:100%;">
+
+
+
+<p><strong>PicGo能组撒</strong>？</p>
+<p>PicGo一个用于快速上传图片并获取图片 URL 链接的工具。</p>
+<p><img src="https://raw.githubusercontent.com/Molunerfinn/test/master/picgo/picgo-2.0.gif" alt="img"></p>
+<p>也就是说他会实现shutter截图-复制到剪贴板-上传到图床-生成markdown支持的链接 一条龙服务。</p>
+<p><strong>Gopic关联Typora实现复制即上传</strong></p>
+<p>在typora偏好设置里更改成如下配置后即可实现复制到typora即同步上传到图床。</p>
+<p><img src="https://raw.githubusercontent.com/fanzidanzhidi/andetuchuang/master/typora-blog/20201022192222.png"></p>
+
             </div>
             <hr/>
 
@@ -586,8 +609,12 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            zzk-fsy
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    Ubuntu&Github入门学习
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -614,9 +641,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="恢复误删的仓库分支">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">恢复误删的仓库分支</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -631,8 +658,12 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            zzk-fsy
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    Ubuntu&Github入门学习
+                                </a>
+                            
                             
                         </span>
                     </div>
