@@ -454,7 +454,287 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="使用ESP32驱动电子墨水屏"><a href="#使用ESP32驱动电子墨水屏" class="headerlink" title="使用ESP32驱动电子墨水屏"></a>使用ESP32驱动电子墨水屏</h1><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/tao-guan-fu"><img src="https://pic1.zhimg.com/d859faa3b38799fa85b5644f48352063_xs.jpg" alt="IEEE1364"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/tao-guan-fu">IEEE1364</a></p>
+<p>人在江湖身不由己</p>
+<p>34 人赞同了该文章</p>
+<h2 id="未经私信同意禁止转载！"><a href="#未经私信同意禁止转载！" class="headerlink" title="未经私信同意禁止转载！"></a>未经私信同意禁止转载！</h2><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a><strong>一、简介</strong></h2><p>显示技术发展很快，高中的时候大家还在学习阴极射线管显示，天天在算电子的轨迹。而如今随处可见LED显示液晶显示。<br>今天给大家介绍一下电子墨水屏。目前生活中比较常见的是在kindle上使用的，显示效果很像纸，质感很好，不上眼睛。这篇文章就是介绍电子墨水屏，并给大家提供在 ESP32 上使用 MicroPython 驱动墨水屏的demo。</p>
+<p>电子墨水屏，又称电子纸，采用“微胶囊电泳显示”技术进行图像显示， 其基本原理是悬浮在液体中的带电纳米粒子受到电场作用而产生迁移。电子纸显示屏是靠反射环境光来显示图案的，不需要背光，即使是在阳光底下，电子纸显示屏依然清晰可视，可视角度几乎达到了 180°。因此，电子纸显示屏非常适合阅读。具有耗低、视角宽、阳光直射下仍可清晰显示等优点，常用于货架标签、工业仪表等显示<br>应用。电子纸不同于我们常见的显示技术，它的的特点是在掉电状态下可以保持显示状态，这点特性使得它在低刷新低功耗领域有很大的应用潜力，比如电子书、电子广告牌、电子标签等等。当然目前电子墨水屏由以下三个缺点：<br>1.造价很高，严重限制其广泛应用。<br>2.支持的显示颜色很少，目前主流的是黑白两色，市场上能看到支持黑白红或者背白黄三色的，但是价格高多了。<br>3.刷新速率低，无法支持动态显示。</p>
+<p>我这次试用的是微雪的1.54in黑白显示模块。在这里放一个带彩色显示的官方图片（微雪应该付我广告费）。</p>
+<p>hbqrclhkfdldmkvt</p>
+<p><img src="https://pic4.zhimg.com/80/v2-33eaea8070221d8261fcd61f5921115b_1440w.jpg" alt="img">微雪1.54inc黑白红三色电子墨水屏</p>
+<p>电子墨水屏使用的SPI接口，其引脚定义以及和ESP32的连接关系如下</p>
+<p><img src="https://pic3.zhimg.com/80/v2-404b7e73844d613f7a439afc66847fca_1440w.jpg" alt="img">接口定义</p>
+<h2 id="二、驱动编写"><a href="#二、驱动编写" class="headerlink" title="二、驱动编写"></a><strong>二、驱动编写</strong></h2><p>电子墨水屏的驱动官方提供C语言版本和python版本，我写的是Micropyon版本，主要是在pyhon版本的基础拿掉Micropython中无法使用的图片库，并且做了底层驱动数据格式上的转换，驱动分为两个文件epdif.py和epd1in54.py。</p>
+<p>epdif.py中定义了硬件接口和数据写入函数，源码如下</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> machine <span class="token keyword">import</span> Pin<span class="token punctuation">,</span> SPI
+<span class="token keyword">import</span> time
+
+<span class="token comment" spellcheck="true"># Pin definition</span>
+reset_pin         <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span>Pin<span class="token punctuation">.</span>OUT<span class="token punctuation">)</span>
+dc_pin          <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span>Pin<span class="token punctuation">.</span>OUT<span class="token punctuation">)</span>
+cs_pin          <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span>Pin<span class="token punctuation">.</span>OUT<span class="token punctuation">)</span>
+busy_pin        <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>Pin<span class="token punctuation">.</span>IN<span class="token punctuation">)</span>
+
+gpio_sck <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span>
+gpio_mosi <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">)</span>
+gpio_miso <span class="token operator">=</span> Pin<span class="token punctuation">(</span><span class="token number">19</span><span class="token punctuation">)</span>
+
+spi <span class="token operator">=</span> SPI<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> baudrate<span class="token operator">=</span><span class="token number">100000</span><span class="token punctuation">,</span> polarity<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> phase<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> sck<span class="token operator">=</span>gpio_sck<span class="token punctuation">,</span> mosi<span class="token operator">=</span>gpio_mosi<span class="token punctuation">,</span> miso<span class="token operator">=</span>gpio_miso<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">epd_digital_write</span><span class="token punctuation">(</span>pin<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pin<span class="token punctuation">.</span>value<span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">epd_digital_read</span><span class="token punctuation">(</span>pin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> pin<span class="token punctuation">.</span>value<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">epd_delay_ms</span><span class="token punctuation">(</span>delaytime<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    time<span class="token punctuation">.</span>sleep_ms<span class="token punctuation">(</span>delaytime<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">spi_transfer</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    spi<span class="token punctuation">.</span>write<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">epd_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    epd_digital_write<span class="token punctuation">(</span>cs_pin<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    spi<span class="token punctuation">.</span>init<span class="token punctuation">(</span>baudrate<span class="token operator">=</span><span class="token number">200000</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>epd1in54.py中定义了复位设置刷新区域等函数，用于对显示信息进行设置。源码如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> epdif
+<span class="token keyword">from</span> machine <span class="token keyword">import</span> Pin<span class="token punctuation">,</span> SPI
+<span class="token keyword">import</span> ujson
+<span class="token keyword">import</span> struct
+<span class="token comment" spellcheck="true"># Display resolution</span>
+EPD_WIDTH       <span class="token operator">=</span> <span class="token number">200</span>
+EPD_HEIGHT      <span class="token operator">=</span> <span class="token number">200</span>
+
+<span class="token comment" spellcheck="true"># EPD1IN54 commands</span>
+DRIVER_OUTPUT_CONTROL                       <span class="token operator">=</span> b<span class="token string">'\x01'</span>
+BOOSTER_SOFT_START_CONTROL                  <span class="token operator">=</span> b<span class="token string">'\x0C'</span>
+GATE_SCAN_START_POSITION                    <span class="token operator">=</span> b<span class="token string">'\x0F'</span>
+DEEP_SLEEP_MODE                             <span class="token operator">=</span> b<span class="token string">'\x10'</span>
+DATA_ENTRY_MODE_SETTING                     <span class="token operator">=</span> b<span class="token string">'\x11'</span>
+SW_RESET                                    <span class="token operator">=</span> b<span class="token string">'\x12'</span>
+TEMPERATURE_SENSOR_CONTROL                  <span class="token operator">=</span> b<span class="token string">'\x1A'</span>
+MASTER_ACTIVATION                           <span class="token operator">=</span> b<span class="token string">'\x20'</span>
+DISPLAY_UPDATE_CONTROL_1                    <span class="token operator">=</span> b<span class="token string">'\x21'</span>
+DISPLAY_UPDATE_CONTROL_2                    <span class="token operator">=</span> b<span class="token string">'\x22'</span>
+WRITE_RAM                                   <span class="token operator">=</span> b<span class="token string">'\x24'</span>
+WRITE_VCOM_REGISTER                         <span class="token operator">=</span> b<span class="token string">'\x2C'</span>
+WRITE_LUT_REGISTER                          <span class="token operator">=</span> b<span class="token string">'\x32'</span>
+SET_DUMMY_LINE_PERIOD                       <span class="token operator">=</span> b<span class="token string">'\x3A'</span>
+SET_GATE_TIME                               <span class="token operator">=</span> b<span class="token string">'\x3B'</span>
+BORDER_WAVEFORM_CONTROL                     <span class="token operator">=</span> b<span class="token string">' '</span>
+SET_RAM_X_ADDRESS_START_END_POSITION        <span class="token operator">=</span> b<span class="token string">'\x44'</span>
+SET_RAM_Y_ADDRESS_START_END_POSITION        <span class="token operator">=</span> b<span class="token string">'\x45'</span>
+SET_RAM_X_ADDRESS_COUNTER                   <span class="token operator">=</span> b<span class="token string">'\x4E'</span>
+SET_RAM_Y_ADDRESS_COUNTER                   <span class="token operator">=</span> b<span class="token string">'\x4F'</span>
+TERMINATE_FRAME_READ_WRITE                  <span class="token operator">=</span> b<span class="token string">'\xFF'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">EPD</span> <span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>reset_pin <span class="token operator">=</span> epdif<span class="token punctuation">.</span>reset_pin
+        self<span class="token punctuation">.</span>dc_pin <span class="token operator">=</span> epdif<span class="token punctuation">.</span>dc_pin
+        self<span class="token punctuation">.</span>busy_pin <span class="token operator">=</span> epdif<span class="token punctuation">.</span>busy_pin
+        self<span class="token punctuation">.</span>width <span class="token operator">=</span> EPD_WIDTH
+        self<span class="token punctuation">.</span>height <span class="token operator">=</span> EPD_HEIGHT
+        self<span class="token punctuation">.</span>lut <span class="token operator">=</span> self<span class="token punctuation">.</span>lut_full_update
+
+    lut_full_update <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token number">0x02</span><span class="token punctuation">,</span> <span class="token number">0x01</span><span class="token punctuation">,</span> <span class="token number">0x11</span><span class="token punctuation">,</span> <span class="token number">0x12</span><span class="token punctuation">,</span> <span class="token number">0x12</span><span class="token punctuation">,</span> <span class="token number">0x22</span><span class="token punctuation">,</span> <span class="token number">0x22</span><span class="token punctuation">,</span> 
+        <span class="token number">0x66</span><span class="token punctuation">,</span> <span class="token number">0x69</span><span class="token punctuation">,</span> <span class="token number">0x69</span><span class="token punctuation">,</span> <span class="token number">0x59</span><span class="token punctuation">,</span> <span class="token number">0x58</span><span class="token punctuation">,</span> <span class="token number">0x99</span><span class="token punctuation">,</span> <span class="token number">0x99</span><span class="token punctuation">,</span> <span class="token number">0x88</span><span class="token punctuation">,</span> 
+        <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xF8</span><span class="token punctuation">,</span> <span class="token number">0xB4</span><span class="token punctuation">,</span> <span class="token number">0x13</span><span class="token punctuation">,</span> <span class="token number">0x51</span><span class="token punctuation">,</span> 
+        <span class="token number">0x35</span><span class="token punctuation">,</span> <span class="token number">0x51</span><span class="token punctuation">,</span> <span class="token number">0x51</span><span class="token punctuation">,</span> <span class="token number">0x19</span><span class="token punctuation">,</span> <span class="token number">0x01</span><span class="token punctuation">,</span> <span class="token number">0x00</span>
+    <span class="token punctuation">]</span>
+
+    lut_partial_update  <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token number">0x10</span><span class="token punctuation">,</span> <span class="token number">0x18</span><span class="token punctuation">,</span> <span class="token number">0x18</span><span class="token punctuation">,</span> <span class="token number">0x08</span><span class="token punctuation">,</span> <span class="token number">0x18</span><span class="token punctuation">,</span> <span class="token number">0x18</span><span class="token punctuation">,</span> <span class="token number">0x08</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> 
+        <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> 
+        <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x13</span><span class="token punctuation">,</span> <span class="token number">0x14</span><span class="token punctuation">,</span> <span class="token number">0x44</span><span class="token punctuation">,</span> <span class="token number">0x12</span><span class="token punctuation">,</span> 
+        <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x00</span>
+    <span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">digital_write</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> pin<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        epdif<span class="token punctuation">.</span>epd_digital_write<span class="token punctuation">(</span>pin<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">digital_read</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> pin<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> epdif<span class="token punctuation">.</span>epd_digital_read<span class="token punctuation">(</span>pin<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">delay_ms</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> delaytime<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        epdif<span class="token punctuation">.</span>epd_delay_ms<span class="token punctuation">(</span>delaytime<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">send_command</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> command<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>digital_write<span class="token punctuation">(</span>self<span class="token punctuation">.</span>dc_pin<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># the parameter type is list but not int</span>
+        <span class="token comment" spellcheck="true"># so use [command] instead of command</span>
+        epdif<span class="token punctuation">.</span>spi_transfer<span class="token punctuation">(</span>command<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">send_data</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>digital_write<span class="token punctuation">(</span>self<span class="token punctuation">.</span>dc_pin<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># the parameter type is list but not int</span>
+        <span class="token comment" spellcheck="true"># so use [data] instead of data</span>
+        epdif<span class="token punctuation">.</span>spi_transfer<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">init</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> lut<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>epdif<span class="token punctuation">.</span>epd_init<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># EPD hardware init start</span>
+        self<span class="token punctuation">.</span>lut <span class="token operator">=</span> lut
+        self<span class="token punctuation">.</span>reset<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>DRIVER_OUTPUT_CONTROL<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>EPD_HEIGHT <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>EPD_HEIGHT <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\x00'</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># GD = 0 SM = 0 TB = 0</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>BOOSTER_SOFT_START_CONTROL<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\xD7'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\xD6'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\x9D'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>WRITE_VCOM_REGISTER<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\xA8'</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># VCOM 7C</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>SET_DUMMY_LINE_PERIOD<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\x1A'</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># 4 dummy lines per gate</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>SET_GATE_TIME<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\x08'</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># 2us per line</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>DATA_ENTRY_MODE_SETTING<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\x03'</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># X increment Y increment</span>
+        self<span class="token punctuation">.</span>set_lut<span class="token punctuation">(</span>self<span class="token punctuation">.</span>lut<span class="token punctuation">)</span>      
+        <span class="token comment" spellcheck="true"># EPD hardware init end</span>
+
+        <span class="token keyword">return</span> <span class="token number">0</span>
+
+    <span class="token keyword">def</span> <span class="token function">wait_until_idle</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>digital_read<span class="token punctuation">(</span>self<span class="token punctuation">.</span>busy_pin<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>      <span class="token comment" spellcheck="true"># 0: idle, 1: busy</span>
+            self<span class="token punctuation">.</span>delay_ms<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: module reset.</span>
+ <span class="token comment" spellcheck="true">#          often used to awaken the module in deep sleep,</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">reset</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>digital_write<span class="token punctuation">(</span>self<span class="token punctuation">.</span>reset_pin<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>         <span class="token comment" spellcheck="true"># module reset</span>
+        self<span class="token punctuation">.</span>delay_ms<span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>digital_write<span class="token punctuation">(</span>self<span class="token punctuation">.</span>reset_pin<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>delay_ms<span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span>    
+
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: set the look-up table register</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">set_lut</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> lut<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>lut <span class="token operator">=</span> lut
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>WRITE_LUT_REGISTER<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># the length of look-up table is 30 bytes</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>lut<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>lut<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: put an image to the frame memory.</span>
+ <span class="token comment" spellcheck="true">#          this won't update the display.</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">set_frame_memory</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> image<span class="token punctuation">,</span> image_width<span class="token punctuation">,</span>image_height<span class="token punctuation">,</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true">#if (image == None or x &lt; 0 or y &lt; 0):</span>
+        <span class="token comment" spellcheck="true">#    return</span>
+        <span class="token comment" spellcheck="true"># x point must be the multiple of 8 or the last 3 bits will be ignored</span>
+        x <span class="token operator">=</span> x <span class="token operator">&amp;</span> <span class="token number">0xF8</span>
+        image_width <span class="token operator">=</span> image_width <span class="token operator">&amp;</span> <span class="token number">0xF8</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">+</span> image_width <span class="token operator">>=</span> self<span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            x_end <span class="token operator">=</span> self<span class="token punctuation">.</span>width <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            x_end <span class="token operator">=</span> x <span class="token operator">+</span> image_width <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>y <span class="token operator">+</span> image_height <span class="token operator">>=</span> self<span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            y_end <span class="token operator">=</span> self<span class="token punctuation">.</span>height <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            y_end <span class="token operator">=</span> y <span class="token operator">+</span> image_height <span class="token operator">-</span> <span class="token number">1</span>        
+        self<span class="token punctuation">.</span>set_memory_area<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> x_end<span class="token punctuation">,</span> y_end<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>set_memory_pointer<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>WRITE_RAM<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># send the image data</span>
+        <span class="token comment" spellcheck="true">#pixels = image_monocolor.load()</span>
+        byte_to_send <span class="token operator">=</span> <span class="token number">0x00</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> y_end <span class="token operator">-</span> y <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 1 byte = 8 pixels, steps of i = 8</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x_end <span class="token operator">-</span> x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> image<span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token operator">*</span><span class="token punctuation">(</span>image_width <span class="token operator">>></span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true"># Set the bits for the column of pixels at the current position.</span>
+                <span class="token comment" spellcheck="true">#if pixels[i, j] != 0:</span>
+                <span class="token comment" spellcheck="true">#    byte_to_send |= 0x80 >> (i % 8)</span>
+                <span class="token comment" spellcheck="true">#if (i % 8 == 7):</span>
+                <span class="token comment" spellcheck="true">#    self.send_data(struct.pack("B", byte_to_send))</span>
+                <span class="token comment" spellcheck="true">#    byte_to_send = 0x00</span>
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: clear the frame memory with the specified color.</span>
+ <span class="token comment" spellcheck="true">#          this won't update the display.</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">clear_frame_memory</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>set_memory_area<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>width <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>height <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>set_memory_pointer<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>WRITE_RAM<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># send the color data</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>width <span class="token operator">/</span> <span class="token number">8</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> color<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: update the display</span>
+ <span class="token comment" spellcheck="true">#          there are 2 memory areas embedded in the e-paper display</span>
+ <span class="token comment" spellcheck="true">#          but once this function is called,</span>
+ <span class="token comment" spellcheck="true">#          the the next action of SetFrameMemory or ClearFrame will </span>
+ <span class="token comment" spellcheck="true">#          set the other memory area.</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">display_frame</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>DISPLAY_UPDATE_CONTROL_2<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>b<span class="token string">'\xC4'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>MASTER_ACTIVATION<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>TERMINATE_FRAME_READ_WRITE<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait_until_idle<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: specify the memory area for data R/W</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">set_memory_area</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x_start<span class="token punctuation">,</span> y_start<span class="token punctuation">,</span> x_end<span class="token punctuation">,</span> y_end<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>SET_RAM_X_ADDRESS_START_END_POSITION<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># x point must be the multiple of 8 or the last 3 bits will be ignored</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x_start <span class="token operator">>></span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x_end <span class="token operator">>></span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>SET_RAM_Y_ADDRESS_START_END_POSITION<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> y_start <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>y_start <span class="token operator">>></span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> y_end <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>y_end <span class="token operator">>></span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: specify the start point for data R/W</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">set_memory_pointer</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>SET_RAM_X_ADDRESS_COUNTER<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># x point must be the multiple of 8 or the last 3 bits will be ignored</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x <span class="token operator">>></span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>SET_RAM_Y_ADDRESS_COUNTER<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> y <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>send_data<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">"B"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>y <span class="token operator">>></span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait_until_idle<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">##</span>
+ <span class="token comment" spellcheck="true">#  @brief: After this command is transmitted, the chip would enter the</span>
+ <span class="token comment" spellcheck="true">#          deep-sleep mode to save power.</span>
+ <span class="token comment" spellcheck="true">#          The deep sleep mode would return to standby by hardware reset.</span>
+ <span class="token comment" spellcheck="true">#          You can use reset() to awaken or init() to initialize</span>
+ <span class="token comment" spellcheck="true">##</span>
+    <span class="token keyword">def</span> <span class="token function">sleep</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>send_command<span class="token punctuation">(</span>DEEP_SLEEP_MODE<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>wait_until_idle<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>还编写了一个简单的测试demo：</p>
+<pre class="line-numbers language-py3tb"><code class="language-py3tb">def test():
+    print('start\n')
+    epd = epd1in54.EPD()
+    epd.init(epd.lut_full_update)
+    print('epd init finish \n')
+    epd.clear_frame_memory(0xff)
+    epd.set_frame_memory(gImage_imag,200,200, 0, 0)
+    epd.display_frame()
+
+    epd.delay_ms(2000)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我将测试源码和相关参考资料打包放在百度云盘中。<br>链接：<a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1RrKF14Nc21VC-coSittHQQ">https://pan.baidu.com/s/1RrKF14Nc21VC-coSittHQQ</a> 密码：jp6t</p>
+<h2 id="三、构想"><a href="#三、构想" class="headerlink" title="三、构想"></a><strong>三、构想</strong></h2><p>有了墨水屏和wifi功能，如果添加上简单的按键控制和电池，就具备一个kindle的基本结构了，做一个小号的kindle应该不难的哈。</p>
+<p>最后，如果有大佬打赏，让我买个彩色的墨水屏玩玩就好了。</p>
+
             </div>
             <hr/>
 
@@ -613,7 +893,7 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/Untitled/">
+                <a href="/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/">
                     <div class="card-image">
                         
                         
@@ -634,11 +914,23 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            zzk-fsy
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    ESP学习笔记
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ESP/">
+                        <span class="chip bg-color">ESP</span>
+                    </a>
+                    
                 </div>
                 
             </div>

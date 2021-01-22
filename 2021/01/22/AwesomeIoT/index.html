@@ -411,25 +411,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/ESP/">
-                                <span class="chip bg-color">ESP</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                ESP学习笔记
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -438,7 +425,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-22
+                    2021-01-22
                 </div>
                 
 
@@ -454,144 +441,128 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ESP学习笔记（一）使用VS-Code快捷键开发"><a href="#ESP学习笔记（一）使用VS-Code快捷键开发" class="headerlink" title="ESP学习笔记（一）使用VS Code快捷键开发"></a>ESP学习笔记（一）使用VS Code快捷键开发</h1><p>根据该教程，用户可在VS Code里快速地对ESP32开发板进行编译烧录等操作。</p>
-<h3 id="Step1：VS-Code任务配置"><a href="#Step1：VS-Code任务配置" class="headerlink" title="Step1：VS Code任务配置"></a>Step1：VS Code任务配置</h3><ul>
-<li>按下 <code>Crtl+Shift+P</code> 并键入 <code>Tasks:Configure Task</code></li>
-<li>选择使用模版新建 <code>tasks.json</code> 文件，选择 <code>others</code></li>
-<li>复制如下ESP32任务配置模版（包含编辑、下载、清除编译/Flash、打开monitor、打开menuconfig等）</li>
-</ul>
-<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
-    // See https<span class="token operator">:</span>//go.microsoft.com/fwlink/?LinkId=<span class="token number">733558</span>
-    // for the documentation about the tasks.json format
-    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"tasks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"build app"</span><span class="token punctuation">,</span> // f5
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8"</span><span class="token punctuation">,</span>
-            <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"build"</span><span class="token punctuation">,</span>
-                <span class="token property">"isDefault"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"flash app"</span><span class="token punctuation">,</span> // f6
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8 flash"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"monitor"</span><span class="token punctuation">,</span> // f7
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make monitor"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"clean app"</span><span class="token punctuation">,</span> // f8
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make clean"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span><span class="token punctuation">,</span> // f9
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make erase_flash"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span><span class="token punctuation">,</span> // f10
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make menuconfig"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">]</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>任务配置步骤如下所示</strong>：</p>
-<img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-1.gif" alt="vscode-esp32-1" style="zoom:100%;">
-
-
-
-<h3 id="Step2：增-加快捷键"><a href="#Step2：增-加快捷键" class="headerlink" title="Step2：增%加快捷键"></a>Step2：增%加快捷键</h3><ul>
-<li><p>按下：<code>Ctrl+Shift+P</code> </p>
+                <h3 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.arduino.cc/">Arduino</a> -Arduino是一个基于易于使用的硬件和软件的开源电子平台。适用于进行交互式项目的任何人。</p>
 </li>
-<li><p>键入 <code>Preferences:Open Keyboard Shortcuts(JSON)</code></p>
+<li><p><a target="_blank" rel="noopener" href="http://beagleboard.org/">BeagleBoard</a> -BeagleBoard是德州仪器与Digi-Key和Newark element14联合生产的一种低功耗开源硬件单板计算机。</p>
 </li>
-<li><p>填充如下参数</p>
-<pre class="line-numbers language-json"><code class="language-json">// Override key bindings by placing them into your key bindings file.
-<span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f5"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"build app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f6"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"flash app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f7"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"monitor"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f8"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"clean app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f9"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f10"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>于是，我们就可以对所选工程进行快捷键开发：</p>
+<li><p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/hardware/dragonboard-410c">Dragonboard</a> -ArrowBoard 410c是Arrow Electronics的产品，是基于中层Qualcomm®Snapdrago硬件</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.espressif.com/en/products/hardware/esp32/overview">ESP32</a> -ESP32，ESP8266的后继产品。ESP32具有强大的硬件功能。高速双核处理器以及众多内置外设将取代连接产品中的微控制器。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.solid-run.com/freescale-imx6-family/hummingboard/">HummingBoard</a> -HummingBoard是三个基于Linux和Android的开源SBC系列，它们基于1GHz Freescale i.MX6 SoC，具有类似Pi的26针I / O连接器。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www-ssl.intel.com/content/www/us/en/do-it-yourself/galileo-maker-quark-board.html">英特尔Galileo-</a>英特尔®Galileo第2代板是基于英特尔®架构的Arduino *认证的开发和原型开发板系列中的第一个，专门为制造商，学生，教育工作者和DIY电子发烧友而设计。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microduino.cc/">Microduino</a> -Microduino和mCookie为各个年龄段的制造商，设计师，工程师，学生和好奇的修补匠带来了功能强大的小型可堆叠电子硬件。建立开源项目或创建创新的新项目。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.nodemcu.com/index_en.html">Node MCU（ESP 8266）</a> -NodeMCU是一个开源物联网平台。它使用Lua脚本语言。它基于eLua项目，并基于ESP8266 SDK 0.9.5构建。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.olimex.com/Products/OLinuXino/open-source-hardware">OLinuXino</a> -OLinuXino是一款低成本（EUR 30）的开源软件和开源硬件Linux工业级单板计算机，其GPIO可在-25°C至+ 85°C的温度范围内运行。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.hardkernel.com/">Odroid</a> -ODROID表示Open + Droid。它是用于硬件和软件的开发平台。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.particle.io/">粒子</a>-一套硬件和软件工具，可帮助您原型设计，扩展和管理物联网产品。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.open-electronics.org/pinoccio-wifi-mesh-networking-for-arduino-and-iot-available-now/">Pinoccio</a> -Pinoccio是为所有you IoT设备添加网状网络功能和WiFi互联网访问的解决方案，并且它与Arduino兼容。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.raspberrypi.org/">Raspberry Pi</a> -Raspberry Pi是一款低成本的信用卡大小的计算机，可插入计算机显示器或电视，并使用标准的键盘和鼠标。它具有处理台式计算机所需的一切功能，从浏览Internet和播放高清视频到制作电子表格，文字处理和玩游戏。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://tessel.io/">Tessel</a> -Tessel是一个完全开源且由社区驱动的物联网和机器人技术开发平台。它包括开发板，硬件模块附加组件以及在其上运行的软件。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.udoo.org/">UDOO</a> -UDOO是具有集成的Arduino 2兼容微控制器的单板计算机，专为计算机科学教育，<a target="_blank" rel="noopener" href="http://www.udoo.org/">创</a>客世界和物联网而设计。</p>
 </li>
 </ul>
-<table>
-<thead>
-<tr>
-<th align="center">快捷键</th>
-<th align="center">执行的命令</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">F5</td>
-<td align="center"><code>make -j8</code></td>
-<td align="center">编译</td>
-</tr>
-<tr>
-<td align="center">F6</td>
-<td align="center"><code>make -j8 flash</code></td>
-<td align="center">编译、下载</td>
-</tr>
-<tr>
-<td align="center">F7</td>
-<td align="center"><code>make monitor</code></td>
-<td align="center">监视器</td>
-</tr>
-<tr>
-<td align="center">F8</td>
-<td align="center"><code>make clean</code></td>
-<td align="center">清除编译</td>
-</tr>
-<tr>
-<td align="center">F9</td>
-<td align="center"><code>make erase_flash</code></td>
-<td align="center">擦除 flash</td>
-</tr>
-<tr>
-<td align="center">F10</td>
-<td align="center"><code>make menuconfig</code></td>
-<td align="center">打开 menuconfig</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>NOTE: 这些命令都应该在工程的 <code>main</code> 目录下的文件中执行，例如： 在 VS Code 中打开了 hello_world 工程中 main 目录下的 <code>hello_world_main.c</code> 文件，可以按快捷键 <code>F6</code> 进行编译、下载。暂不支持在其他目录下进行。</p>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><h4 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://mynewt.apache.org/">Apache Mynewt</a> -Apache Mynewt是一个实时的模块化操作系统，用于需要在电源，内存和存储约束下长时间运行的已连接IoT设备。提供的第一个连接堆栈是BLE 4.2。</li>
+<li><a target="_blank" rel="noopener" href="http://www.mbed.com/">ARM mbed</a> -ARM®mbed™物联网设备平台提供了操作系统，云服务，工具和开发人员生态系统，可大规模创建和部署基于标准的商业物联网解决方案。</li>
+<li><a target="_blank" rel="noopener" href="http://www.contiki-os.org/">Contiki</a> -Contiki是用于物联网的开源操作系统。Contiki将纤巧的低成本，低功耗微控制器连接到Internet。</li>
+<li><a target="_blank" rel="noopener" href="http://www.freertos.org/">FreeRTOS</a> -FreeRTOS是一种流行的嵌入式设备实时操作系统内核，已移植到35个微控制器上。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/things/">Android Things</a> -Android Things将Android平台扩展到了您所有连接的设备，因此易于安装，并且彼此之间以及与您的智能手机无缝地协同工作。</li>
+<li><a target="_blank" rel="noopener" href="https://openwrt.org/">OpenWrt</a> -OpenWrt是基于Linux内核的操作系统（特别是嵌入式操作系统），主要用于嵌入式设备上以路由网络流量。主要组件是Linux内核，util-linux，uClibc或musl和BusyBox。所有组件均已针对大小进行了优化，以使其足够小以适合家用路由器中有限的存储和内存。</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.ubuntu.com/Snappy">Snappy Ubuntu</a> -Snappy Ubuntu Core是具有事务更新的Ubuntu的新版本。它提供的最小服务器映像具有与当今的Ubuntu相同的库，但是通过更简单的机制提供了应用程序。</li>
+<li><a target="_blank" rel="noopener" href="http://node-os.com/">NodeOS</a> -NodeOS是完全用Java编写的操作系统，由Linux内核之上的npm管理。</li>
+<li><a target="_blank" rel="noopener" href="https://raspbian.org/">Raspbian</a> -Raspbian是基于Debian的免费操作系统，针对Raspberry Pi硬件进行了优化。</li>
+<li><a target="_blank" rel="noopener" href="http://www.riot-os.org/">RIOT-</a>物联网的友好操作系统。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tinyos/tinyos-main">微小的OS</a> - TinyOS是一个开源的，BSD许可操作系统设计用于低功率无线设备，诸如那些在传感器网络中，无处不在的计算，个人区域网络，智能建筑，和智能仪表使用。</li>
+<li><a target="_blank" rel="noopener" href="https://ubos.net/">UBOS</a> -UBOS是一个Linux发行版，致力于简化运行Web应用程序的家庭服务器和独立IoT设备的系统管理。它是Arch Linux的派生产品，可在PC，Raspberry Pi，ESPRESSObin和云上运行。</li>
+<li><a target="_blank" rel="noopener" href="https://dev.windows.com/en-us/iot">Windows 10 IoT核心版</a>-Windows 10 IoT是Windows 10版本的系列，适用于各种智能设备，从小型工业网关到大型更复杂的设备（如销售点终端和ATM）。</li>
+<li><a target="_blank" rel="noopener" href="https://www.zephyrproject.org/">Zephyr项目</a>-Zephyr™项目是可扩展的实时操作系统（RTOS），支持多种硬件体系结构，针对资源受限的设备进行了优化，并且在设计时考虑了安全性。</li>
+</ul>
+<h4 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h4><blockquote>
+<p>本节将重新组合与嵌入式开发相关的各种出色编程语言，无论是编译，解释还是DSL。</p>
 </blockquote>
-<p>详细配置过程：</p>
-<img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-2.gif" alt="vscode-esp32-2" style="zoom:100%;">
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C_(programming_language)">C-</a>一种通用的命令式计算机编程语言，支持结构化编程，词法变量范围和递归，而静态类型系统可防止许多意外操作。</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C%2B%2B">C ++</a> -通用编程语言。它具有命令性，面向对象和通用编程功能，同时还提供了用于低级内存操作的功能。</li>
+<li><a target="_blank" rel="noopener" href="http://www.groovy-lang.org/">Groovy</a> -Groovy是一种功能强大的，可选的类型化和动态语言，具有静态键入和静态编译功能，该Java平台旨在通过简洁，熟悉且易于学习的语法来提高开发人员的生产力。SmartThings开发环境使用它来创建智能应用程序。</li>
+<li><a target="_blank" rel="noopener" href="http://www.lua.org/">Lua</a> -Lua是一种功能强大，快速，轻巧，可嵌入的脚本语言。Lua是动态类型的，可通过解释基于寄存器的虚拟机的字节码来运行，并具有带有增量垃圾回收的自动内存管理功能，因此非常适合配置，脚本编写和快速原型制作。</li>
+<li><a target="_blank" rel="noopener" href="http://www.eluaproject.net/">eLua</a> -eLua代表嵌入式Lua，该项目为嵌入式世界提供了Lua编程语言的完整实现，并通过其特定功能进行了扩展，从而实现了高效且可移植的软件嵌入式开发。</li>
+<li><a target="_blank" rel="noopener" href="http://c3d.github.io/elfe/">ELFE</a> -ELFE是一种非常简单的小型编程语言。虽然它是一种通用的编程语言，但经过专门调整以方便对诸如传感器或执行器之类的小型设备进行配置和控制。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.micropython.org/">MicroPython-</a>适用于微控制器和受限系统的精简高效的Python实现</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pharo-iot/PharoThings">PharoThings-</a>基于<a target="_blank" rel="noopener" href="https://pharo.org/">Pharo</a>（纯的面向对象编程语言和强大的环境，专注于简单性和即时反馈）的物联网项目实时编程平台。</li>
+<li><a target="_blank" rel="noopener" href="https://tinygo.org/">TinyGo</a> -TinyGo是一个通过创建基于LLVM的新编译器将Go编程语言引入微控制器和现代Web浏览器的项目。您可以在许多不同的微控制器板上编译和运行TinyGo程序，例如BBC micro：bit和Arduino Uno。</li>
+</ul>
+<h4 id="构架"><a href="#构架" class="headerlink" title="构架"></a>构架</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://openconnectivity.org/developer/reference-implementation/alljoyn">AllJoyn</a> -AllJoyn是一个开源软件框架，可让设备和应用轻松发现并相互通信。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/homekit/">Apple HomeKit</a> -HomeKit是用于与用户家中的连接附件进行通信和控制的框架。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/astarte-platform/astarte">Astarte</a> -Astarte是用Elixir编写的开源物联网平台。它是一个交钥匙解决方案，囊括了将设备群连接到一组远程应用程序所需的一切。它执行数据建模，自动数据缩减，实时事件，并为您提供现代物联网平台中可能期望的任何功能。目前，使用提供的SDK即可立即支持Linux和ESP32设备。</li>
+<li><a target="_blank" rel="noopener" href="http://www.blynk.cc/">Blynk</a> -Blynk是一个用于为连接的事物创建iOS和Android应用程序的平台。您只需拖放小部件（就在智能手机上），即可轻松为所有项目构建图形界面。支持以太网，WiFi，蓝牙，GSM / GPRS，USB /串行连接以及来自Arduino，Raspberry，ARM mbed，Particle，RedBear等的各种原型平台。</li>
+<li><a target="_blank" rel="noopener" href="http://github.com/countly/countly-server">Countly IoT Analytics</a> -Countly是用于移动和IoT设备的通用分析平台，可以作为开源使用。</li>
+<li><a target="_blank" rel="noopener" href="https://eclipse.org/smarthome/">Eclipse Smarthome</a> -Eclipse SmartHome框架旨在在嵌入式设备上运行，例如Raspberry Pi，BeagleBone Black或Intel Edison。它需要Java 7兼容的JVM和OSGi（4.2+）框架，例如Eclipse Equinox。</li>
+<li><a target="_blank" rel="noopener" href="http://www.freedomotic.com/">Freedomotic</a> -Freedomotic是一个开源，灵活，安全的物联网（IoT）开发框架，可用于构建和管理现代智能空间。它针对个人（家庭自动化）和商业用户（智能零售环境，环境感知营销，监控和分析等）。它使用Java编写，可以与众所周知的标准建筑自动化协议以及“自己动手”解决方案进行交互。</li>
+<li><a target="_blank" rel="noopener" href="https://iotivity.org/">Iotivity</a> -IoTivity是一个开源软件框架，支持无缝的设备到设备连接以解决物联网的新兴需求。</li>
+<li><a target="_blank" rel="noopener" href="https://eclipse.org/kura/">Kura</a> -Kura旨在为服务网关中运行的M2M应用程序提供基于Java / OSGi的容器。Kura为M2M应用程序所需的最常见服务提供或汇总开源实现。</li>
+<li><a target="_blank" rel="noopener" href="http://www.lelylan.com/">Lelylan</a> -Lelylan是基于轻量级微服务架构的物联网云平台。Lelylan平台与硬件无关，也与平台无关。这意味着您可以连接从ESP8266到最专业的嵌入式硬件解决方案的任何硬件，以及介于两者之间的所有内容-它可以在任何公共云，您自己的私有数据中心甚至混合环境中运行，无论是虚拟环境还是裸机环境。</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.eclipse.org/Mihini">Mihini</a> - <a target="_blank" rel="noopener" href="https://wiki.eclipse.org/Mihini">Mihini</a>的主要目标是提供运行在Linux之上的嵌入式运行时，该运行时公开了用于构建M2M应用程序的高级API。Mihini的目的是通过促进对M2M系统的I / O的访问，提供通信层等，来实现简单且可移植的开发。</li>
+<li><a target="_blank" rel="noopener" href="http://www.openhab.org/">OpenHAB</a> -openHAB运行时是在OSGi框架（Equinox）上部署的一组OSGi捆绑软件。因此，它是纯Java解决方案，并且需要JVM才能运行。它基于OSGi，提供了高度模块化的体系结构，甚至允许在运行时添加和删除功能而无需停止服务。</li>
+<li><a target="_blank" rel="noopener" href="http://gobot.io/">Gobot</a> -Gobot是使用Go编程语言编写的用于机器人技术，物理计算和物联网的框架。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/home-assistant/home-assistant">Home Assistant</a> -Home Assistant是运行在Python 3上的家庭自动化平台。HomeAssistant的目标是能够在家中跟踪和控制所有设备，并提供用于自动化控制的平台。</li>
+<li><a target="_blank" rel="noopener" href="http://lwmqn.github.io/">轻量级MQTT机器网络</a>-LWMQN是一个开源项目，遵循OMA LWM2M v1.0规范的一部分，并使用基于IP的智能对象模型来满足机器网络管理的最低要求。它提供了服务器端和机器端库，从而使JavaScript和Node.js的全栈IoT开发成为可能。另请参阅：IPSO联盟<a target="_blank" rel="noopener" href="http://www.ipso-alliance.org/ipso-community/resources/technical-archive/">技术档案</a>。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/thingsboard/thingsboard-gateway">Thingsboard IoT网关</a>-开源IoT网关-使用OPC-UA和MQTT协议将连接到旧式和第三方系统的设备与Thingsboard IoT Platform集成在一起。</li>
+<li><a target="_blank" rel="noopener" href="https://pimatic.org/">Pimatic</a> -Pimatic是运行在node.js上的家庭自动化框架。它为家庭控制和自动化任务提供了一个通用的可扩展平台。</li>
+<li><a target="_blank" rel="noopener" href="https://iota.org/">IOTA-</a>物联网的开源分布式分类帐协议。使用有向无环图（DAG）代替区块链。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mycontroller-org/mycontroller">MyController-</a>开源控制器。MyController.org是适用于家庭，办公室或任何地方的物联网自动化控制器。</li>
+<li><a target="_blank" rel="noopener" href="https://iot.mozilla.org/">Mozilla WebThings-</a>一个用于通过Web监视和控制设备的开放平台。</li>
+</ul>
+<h4 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://corlysis.com/">Corlysis</a> -Corlysis是一个平台，可以帮助您存储和可视化时间序列数据。它基于SpaceX也使用的开源项目Grafana和InfluxDB。</li>
+<li><a target="_blank" rel="noopener" href="https://ifttt.com/">IFTTT</a> -IFTTT是一项基于Web的服务，允许用户创建简单的条件语句链，称为“食谱”，这些条件语句是基于对其他Web服务（例如Gmail，Facebook，Instagram和Pinterest）的更改而触发的。IFTTT是“ If This Then That”的缩写（发音为“ gift”，没有“ g”）。</li>
+<li><a target="_blank" rel="noopener" href="https://www.opc-router.com/opc-router-details/">OPC路由器</a>-带有各种插件的IoT网关（OPC UA，Mqtt，SQL，REST，SAP，InfluxDB，打印机等）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cantino/huginn">Huginn</a> -Huginn是一个用于构建代理的系统，该代理可以在线为您执行自动化任务。</li>
+<li><a target="_blank" rel="noopener" href="http://www.kaaproject.org/">Kaa-</a>一个用于快速创建IoT解决方案的开源中间件平台。</li>
+<li><a target="_blank" rel="noopener" href="https://losant.com/">Losant</a> -Losant是一个易于使用且功能强大的开发人员平台，旨在帮助您快速安全地构建复杂的连接解决方案。Losant使用REST和MQTT等开放式通信标准来提供从一台到数百万台设备的连接。Losant提供了强大的数据收集，聚合和可视化功能，以帮助理解和量化大量传感器数据。Losant的拖放式工作流编辑器使您无需编程即可触发动作，通知和机器对机器的通信。</li>
+<li><a target="_blank" rel="noopener" href="https://microservicebus.com/">MicroServiceBus.com-MicroServiceBus.com</a>是适用于Azure，AWS和IBM IoT中心的设备管理平台，与GitHub，ServiceNow，Cisco Jasper等集成。它带有免费（有限）版本以及企业产品。</li>
+<li><a target="_blank" rel="noopener" href="http://www.dreamfactory.com/">DreamFactory</a> -DreamFactory是针对移动，Web和IoT应用程序的免费开源REST API平台。</li>
+<li><a target="_blank" rel="noopener" href="https://www.hivemq.com/">HiveMQ-</a>可用于企业的MQTT代理，可以扩展以连接数百万个IoT设备。</li>
+<li><a target="_blank" rel="noopener" href="https://i1820.github.io/">I1820</a> -I1820是一个免费的开源平台，它基于MQTT提供发现，数据收集和配置服务。I1820实现了用于控制事物的REST API，并将所有收集的数据存储在名为InfluxDB的时间序列数据库中。</li>
+<li><a target="_blank" rel="noopener" href="https://iostash.io/">IOStash</a> -IOStash是一个高性能的物联网平台，对于DIY开发人员和非营利性应用程序免费。它具有多种连接选项，可以轻松开发M2M或M2A应用程序。IOStash提供了Nodejs和Android库，可轻松创建应用程序。</li>
+<li><a target="_blank" rel="noopener" href="https://thingsboard.io/">Thingsboard-</a>一个开源物联网平台。物联网解决方案的设备管理，数据收集，处理和可视化。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/erlio/vernemq">VerneMQ</a> -VerneMQ是一种高性能的分布式MQTT代理，可连接IoT，M2M，移动和Web应用程序。它可以在商品硬件上水平和垂直扩展，以支持大量并发的发布者和使用者，同时保持较低的延迟和容错能力。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kuzzleio/kuzzle">Kuzzle-</a>具有高级功能的开源后端，例如实时发布/订阅或地理围栏，以及支持MQTT，LoRaWAN等的多协议接口。（<a target="_blank" rel="noopener" href="https://kuzzle.io/solutions/technologies/iot-backend/">网站</a>）</li>
+<li><a target="_blank" rel="noopener" href="https://www.devicepilot.com/">DevicePilot-</a>连接设备（包括永久免费层）的运行分析。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/emqx/emqx">EMQ X</a> -5G时代中用于IoT的可扩展且可靠的实时MQTT消息引擎。</li>
+<li><a target="_blank" rel="noopener" href="https://waterstream.io/">Waterstream</a> -MQTT经纪人利用Apache Kafka作为其自己的存储和分发引擎。</li>
+</ul>
+<h4 id="库和工具"><a href="#库和工具" class="headerlink" title="库和工具"></a>库和工具</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://cylonjs.com/">Cylon.js</a> -Cylon.js是一个JavaScript框架，用于机器人技术，物理计算和物联网。它使指挥机器人和设备变得异常容易。</li>
+<li><a target="_blank" rel="noopener" href="https://luvit.io/">Luvit</a> -Luvit实现与Node.js相同的API，但是在Lua中！虽然这个框架是没有直接参与物联网的发展，它仍然是一个<em>伟大</em>的方式来快速构建功能强大，高效存储，嵌入式Web应用程序。</li>
+<li><a target="_blank" rel="noopener" href="http://johnny-five.io/">Johnny-Five</a> -Johnny-Five是原始的JavaScript Robotics编程框架。Johnny-Five由Bocoup于2012年发布，由一群热情的软件开发人员和硬件工程师共同维护。</li>
+<li><a target="_blank" rel="noopener" href="http://pi4j.com/">Pi4J</a> -Pi4j旨在为Java程序员提供友好的面向对象的I / O API和实现库，以访问Raspberry Pi平台的完整I / O功能。</li>
+<li><a target="_blank" rel="noopener" href="http://wiringpi.com/">WiringPi</a> -WiringPi是用R语言编写的GPIO访问库，用于Raspberry Pi中使用的BCM2835。</li>
+<li><a target="_blank" rel="noopener" href="http://nodered.org/">Node-RED-</a>用于连接物联网的可视化工具。</li>
+<li><a target="_blank" rel="noopener" href="https://www.gambitcomm.com/site/iot_simulator.php">MIMIC IoT Simulator-</a>基于MQTT，CoAP，REST模拟大型IoT环境以进行IoT应用的敏捷开发/测试/概念验证/培训</li>
+<li><a target="_blank" rel="noopener" href="https://thomasnordquist.github.io/MQTT-Explorer/">MQTT Explorer-</a>用于在主题层次结构中可视化您的MQTT主题的工具，MQTT瑞士军刀。</li>
+<li><a target="_blank" rel="noopener" href="https://ops.city/">ops-</a>一个免费的开源工具，用于将Linux应用程序作为unikernel构建，运行和部署。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/PeterEB/smartobject">SmartObject-</a>一种智能对象类，可帮助您在JavaScript应用程序中创建IPSO智能对象。另请参阅：IPSO联盟<a target="_blank" rel="noopener" href="http://www.ipso-alliance.org/ipso-community/resources/technical-archive/">技术档案</a>。</li>
+</ul>
+<h4 id="杂"><a href="#杂" class="headerlink" title="杂"></a>杂</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://fresh.amazon.com/dash/">Amazon Dash</a> -Amazon Dash Button是连接到Wi-Fi的设备，只需按一下按钮即可对您喜欢的物品进行重新排序。</li>
+<li><a target="_blank" rel="noopener" href="http://freeboard.io/">Freeboard-</a>实时交互式仪表板和可视化创建器，实现了直观的拖放界面。</li>
+<li><a target="_blank" rel="noopener" href="http://nebula.readthedocs.io/">星云</a>-泊坞窗配器设计用于管理物联网设备。</li>
+<li><a target="_blank" rel="noopener" href="https://gladysassistant.com/">Gladys</a> -Gladys是一个在Raspberry Pi上运行并集成到整个家庭网络系统中的开源程序。</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -616,7 +587,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://fanzidanzhidi.github.io/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/">https://fanzidanzhidi.github.io/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/</a>
+                    <a href="https://fanzidanzhidi.github.io/2021/01/22/AwesomeIoT/">https://fanzidanzhidi.github.io/2021/01/22/AwesomeIoT/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -653,11 +624,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/ESP/">
-                                    <span class="chip bg-color">ESP</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -701,13 +668,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
+                <a href="/2021/01/22/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Ubuntu%E5%A5%BD%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%88%86%E4%BA%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="ESP学习笔记（四）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">ESP学习笔记（四）</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,27 +685,15 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    ESP学习笔记
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            zzk-fsy
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/ESP/">
-                        <span class="chip bg-color">ESP</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -750,13 +705,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/21/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
+                <a href="/2021/01/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/Untitled%201/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Linux指令学习">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">Linux指令学习</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,27 +722,15 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    Ubuntu&Github入门学习
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            zzk-fsy
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                 </div>
                 
             </div>
