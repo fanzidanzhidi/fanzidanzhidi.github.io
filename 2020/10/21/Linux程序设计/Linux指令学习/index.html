@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IoT ESP Linux C++ 反子弹之弟">
+    <meta name="keywords" content="Linux指令学习, IoT ESP Linux C++ 反子弹之弟">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Welcome to fsy&#39;s harbour</title>
+    <title>Linux指令学习 | Welcome to fsy&#39;s harbour</title>
     <link rel="icon" type="image/png" href="/favicon">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -291,12 +291,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Linux指令学习</h1>
                 </div>
             </div>
         </div>
@@ -413,8 +413,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/ESP/">
-                                <span class="chip bg-color">ESP</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -425,8 +425,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                ESP学习笔记
+                            <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                Ubuntu&Github入门学习
                             </a>
                         
                     </div>
@@ -438,7 +438,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-22
+                    2020-10-21
                 </div>
                 
 
@@ -454,144 +454,23 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ESP学习笔记（一）使用VS-Code快捷键开发"><a href="#ESP学习笔记（一）使用VS-Code快捷键开发" class="headerlink" title="ESP学习笔记（一）使用VS Code快捷键开发"></a>ESP学习笔记（一）使用VS Code快捷键开发</h1><p>根据该教程，用户可在VS Code里快速地对ESP32开发板进行编译烧录等操作。</p>
-<h3 id="Step1：VS-Code任务配置"><a href="#Step1：VS-Code任务配置" class="headerlink" title="Step1：VS Code任务配置"></a>Step1：VS Code任务配置</h3><ul>
-<li>按下 <code>Crtl+Shift+P</code> 并键入 <code>Tasks:Configure Task</code></li>
-<li>选择使用模版新建 <code>tasks.json</code> 文件，选择 <code>others</code></li>
-<li>复制如下ESP32任务配置模版（包含编辑、下载、清除编译/Flash、打开monitor、打开menuconfig等）</li>
-</ul>
-<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
-    // See https<span class="token operator">:</span>//go.microsoft.com/fwlink/?LinkId=<span class="token number">733558</span>
-    // for the documentation about the tasks.json format
-    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"tasks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"build app"</span><span class="token punctuation">,</span> // f5
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8"</span><span class="token punctuation">,</span>
-            <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"build"</span><span class="token punctuation">,</span>
-                <span class="token property">"isDefault"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"flash app"</span><span class="token punctuation">,</span> // f6
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8 flash"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"monitor"</span><span class="token punctuation">,</span> // f7
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make monitor"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"clean app"</span><span class="token punctuation">,</span> // f8
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make clean"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span><span class="token punctuation">,</span> // f9
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make erase_flash"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span><span class="token punctuation">,</span> // f10
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make menuconfig"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">]</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>任务配置步骤如下所示</strong>：</p>
-<img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-1.gif" alt="vscode-esp32-1" style="zoom:100%;">
-
-
-
-<h3 id="Step2：增-加快捷键"><a href="#Step2：增-加快捷键" class="headerlink" title="Step2：增%加快捷键"></a>Step2：增%加快捷键</h3><ul>
-<li><p>按下：<code>Ctrl+Shift+P</code> </p>
-</li>
-<li><p>键入 <code>Preferences:Open Keyboard Shortcuts(JSON)</code></p>
-</li>
-<li><p>填充如下参数</p>
-<pre class="line-numbers language-json"><code class="language-json">// Override key bindings by placing them into your key bindings file.
-<span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f5"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"build app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f6"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"flash app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f7"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"monitor"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f8"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"clean app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f9"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f10"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>于是，我们就可以对所选工程进行快捷键开发：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">快捷键</th>
-<th align="center">执行的命令</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">F5</td>
-<td align="center"><code>make -j8</code></td>
-<td align="center">编译</td>
-</tr>
-<tr>
-<td align="center">F6</td>
-<td align="center"><code>make -j8 flash</code></td>
-<td align="center">编译、下载</td>
-</tr>
-<tr>
-<td align="center">F7</td>
-<td align="center"><code>make monitor</code></td>
-<td align="center">监视器</td>
-</tr>
-<tr>
-<td align="center">F8</td>
-<td align="center"><code>make clean</code></td>
-<td align="center">清除编译</td>
-</tr>
-<tr>
-<td align="center">F9</td>
-<td align="center"><code>make erase_flash</code></td>
-<td align="center">擦除 flash</td>
-</tr>
-<tr>
-<td align="center">F10</td>
-<td align="center"><code>make menuconfig</code></td>
-<td align="center">打开 menuconfig</td>
-</tr>
-</tbody></table>
+                <h1 id="Linux指令学习——基础篇"><a href="#Linux指令学习——基础篇" class="headerlink" title="Linux指令学习——基础篇"></a>Linux指令学习——基础篇</h1><p>Linux（Ubuntu）作为开发者常用的操作系统，经查会用到命令行完成一系列开发，因此对于linux指令的语法学习是非常基础而又必要的。本篇主要介绍一些最基本最常用的Linux指令。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/228680-92ad761516389d11.jpg" alt="img"></p>
 <blockquote>
-<p>NOTE: 这些命令都应该在工程的 <code>main</code> 目录下的文件中执行，例如： 在 VS Code 中打开了 hello_world 工程中 main 目录下的 <code>hello_world_main.c</code> 文件，可以按快捷键 <code>F6</code> 进行编译、下载。暂不支持在其他目录下进行。</p>
+<h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>bye、ftp、ftpcount、ftpshut、ftpwho、ncftp、tftp、uucico、uucp、uupick、uuto、scp</p>
+<h3 id="备份压缩"><a href="#备份压缩" class="headerlink" title="备份压缩"></a>备份压缩</h3><p>ar、bunzip2、bzip2、bzip2recover、compress、cpio、dump、gunzip、gzexe、gzip、lha、restore、tar、unarj、unzip、zip、zipinfo</p>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><p>diff、diffstat、file、find、git、gitview、ln、locate、lsattr、mattrib、mc、mcopy、mdel、mdir、mktemp、mmove、mread、mren、mshowfat、mtools、mtoolstest、mv、od、paste、patch、rcp、rhmask、rm、slocate、split、tee、tmpwatch、touch、umask、whereis、which、cat、chattr、chgrp、chmod、chown、cksum、cmp、cp、cut、indent</p>
+<h3 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h3><p>cd、df、dirs、du、edquota、eject、lndir、ls、mcd、mdeltree、mdu、mkdir、mlabel、mmd、mmount、mrd、mzip、pwd、quota、quotacheck、quotaoff、quotaon、repquota、rmdir、rmt、stat、tree、umount</p>
+<h3 id="磁盘维护"><a href="#磁盘维护" class="headerlink" title="磁盘维护"></a>磁盘维护</h3><p>badblocks、cfdisk、dd、e2fsck、ext2ed、fdisk、fsck.ext2、fsck、fsck.minix、fsconf、hdparm、losetup、mbadblocks、mformat、mkbootdisk、mkdosfs、mke2fs、mkfs.ext2、mkfs、mkfs.minix、mkfs.msdos、mkinitrd、mkisofs、mkswap、mpartition、sfdisk、swapoff、swapon、symlinks、sync</p>
+<h3 id="系统设置"><a href="#系统设置" class="headerlink" title="系统设置"></a>系统设置</h3><p>alias、apmd、aumix、bind、chkconfig、chroot、clock、crontab、declare、depmod、dircolors、dmesg、enable、eval、export、fbset、grpconv、grpunconv、hwclock、insmod、kbdconfig、lilo、liloconfig、lsmod、minfo、mkkickstart、modinfo、modprobe、mouseconfig、ntsysv、passwd、pwconv、pwunconv、rdate、resize、rmmod、rpm、set、setconsole、setenv、setup、sndconfig、SVGAText Mode、timeconfig、ulimit、unalias、unset</p>
+<h3 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h3><p>adduser、chfn、chsh、date、exit、finger、free、fwhois、gitps、groupdel、groupmod、halt、id、kill、last、lastb、login、logname、logout、logrotate、newgrp、nice、procinfo、ps、pstree、reboot、renice、rlogin、rsh、rwho、screen、shutdown、sliplogin、su、sudo、suspend、swatch、tload、top、uname、useradd、userconf、userdel、usermod、vlock、w、who、whoami、whois</p>
+<h3 id="文本处理"><a href="#文本处理" class="headerlink" title="文本处理"></a>文本处理</h3><p>awk、col、colrm、comm、csplit、ed、egrep、ex、fgrep、fmt、fold、grep、ispell、jed、joe、join、look、mtype、pico、rgrep、sed、sort、spell、tr、uniq、vi、wc</p>
+<h3 id="网络通讯"><a href="#网络通讯" class="headerlink" title="网络通讯"></a>网络通讯</h3><p>dip、getty、mingetty、ppp-off、smbd(samba daemon)、telnet、uulog、uustat、uux、cu、dnsconf、efax、httpd、ip、ifconfig、mesg、minicom、nc、netconf、netconfig、netstat、ping、pppstats、samba、setserial、shapecfg(shaper configuration)、smbd(samba daemon)、statserial(status ofserial port)、talk、tcpdump、testparm(test parameter)、traceroute、tty(teletypewriter)、uuname、wall(write all)、write、ytalk、arpwatch、apachectl、smbclient(samba client)、pppsetup</p>
+<h3 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h3><p>dumpkeys、loadkeys、MAKEDEV、rdev、setleds</p>
+<h3 id="电子邮件与新闻组"><a href="#电子邮件与新闻组" class="headerlink" title="电子邮件与新闻组"></a>电子邮件与新闻组</h3><p>archive、ctlinnd、elm、getlist、inncheck、mail、mailconf、mailq、messages、metamail、mutt、nntpget、pine、slrn、X WINDOWS SYSTEM、reconfig、startx(start X Window)、Xconfigurator、XF86Setup、xlsatoms、xlsclients、xlsfonts</p>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p>yes</p>
 </blockquote>
-<p>详细配置过程：</p>
-<img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-2.gif" alt="vscode-esp32-2" style="zoom:100%;">
+
             </div>
             <hr/>
 
@@ -616,7 +495,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://fanzidanzhidi.github.io/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/">https://fanzidanzhidi.github.io/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/</a>
+                    <a href="https://fanzidanzhidi.github.io/2020/10/21/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">https://fanzidanzhidi.github.io/2020/10/21/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -654,8 +533,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/ESP/">
-                                    <span class="chip bg-color">ESP</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -701,13 +580,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
+                <a href="/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="ESP学习笔记（四）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">ESP学习笔记（四）</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -750,19 +629,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/21/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
+                <a href="/2020/10/21/git%E5%92%8Cgithub%E5%88%9D%E6%AD%A5%E5%AD%A6%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Linux指令学习">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="git和github初步学习">
                         
-                        <span class="card-title">Linux指令学习</span>
+                        <span class="card-title">git和github初步学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            fanzidanzhidi的第一篇博文，超级开心~~~~~
                         
                     </div>
                     <div class="publish-info">
@@ -784,8 +663,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/Github/">
+                        <span class="chip bg-color">Github</span>
+                    </a>
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>

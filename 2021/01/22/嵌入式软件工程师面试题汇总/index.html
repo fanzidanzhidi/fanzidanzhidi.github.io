@@ -411,25 +411,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/ESP/">
-                                <span class="chip bg-color">ESP</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                ESP学习笔记
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -438,7 +425,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-22
+                    2021-01-22
                 </div>
                 
 
@@ -454,144 +441,187 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="ESP学习笔记（一）使用VS-Code快捷键开发"><a href="#ESP学习笔记（一）使用VS-Code快捷键开发" class="headerlink" title="ESP学习笔记（一）使用VS Code快捷键开发"></a>ESP学习笔记（一）使用VS Code快捷键开发</h1><p>根据该教程，用户可在VS Code里快速地对ESP32开发板进行编译烧录等操作。</p>
-<h3 id="Step1：VS-Code任务配置"><a href="#Step1：VS-Code任务配置" class="headerlink" title="Step1：VS Code任务配置"></a>Step1：VS Code任务配置</h3><ul>
-<li>按下 <code>Crtl+Shift+P</code> 并键入 <code>Tasks:Configure Task</code></li>
-<li>选择使用模版新建 <code>tasks.json</code> 文件，选择 <code>others</code></li>
-<li>复制如下ESP32任务配置模版（包含编辑、下载、清除编译/Flash、打开monitor、打开menuconfig等）</li>
+                <h2 id="嵌入式软件工程师常问问题汇总（持续更新）"><a href="#嵌入式软件工程师常问问题汇总（持续更新）" class="headerlink" title="嵌入式软件工程师常问问题汇总（持续更新）"></a>嵌入式软件工程师常问问题汇总（持续更新）</h2><ol>
+<li><p><strong>介绍一下 MQTT/HTTP/Coap 原理</strong></p>
+</li>
+<li><p><strong>最小模式单片机除CPU外包含哪些部分？</strong></p>
+</li>
+<li><p><strong>嵌入式领域如何实现低功耗？</strong></p>
+</li>
+<li><p><strong>LoRa 与 NB-IoT最大的区别</strong></p>
+</li>
+<li><p><strong>LoRa 通信的过程是怎样的？</strong></p>
+</li>
+<li><p><strong>STM32 实现示波器、信号源的工作原理是怎样的？</strong></p>
+</li>
+<li><p><strong>LabView 常见工作流程</strong></p>
+</li>
+<li><p><strong>看懂电路！！！！！！</strong></p>
+</li>
+<li><p><strong>OSI模型是什么，能具体说说每一层对应什么？</strong></p>
+</li>
+<li><p><strong>能深入聊聊RTOS、物联网操作系统吗</strong></p>
+</li>
+<li><p><strong>GPIO、I2C、I2S 原理</strong></p>
+</li>
+</ol>
+<ol>
+<li><p><strong>介绍一下 MQTT/HTTP/Coap 原理</strong></p>
+<p>MQTT（Message Queuing Telemetry Transport，消息队列遥测传输协议），是一种基于<code>发布/订阅</code>（<code>publish/subscribe</code>）模式的“轻量级”通讯协议，该协议构建于TCP/IP协议上，由IBM在1999年发布。MQTT最大优点在于，可以以极少的代码和有限的带宽，为连接远程设备提供实时可靠的消息服务。做为一种低开销、低带宽占用的即时通讯协议，使其在物联网、小型设备、移动应用等方面有较广泛的应用。</p>
+<p>原理记得参考源码理解。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xueweisuoyong/p/11196493.html">https://www.cnblogs.com/xueweisuoyong/p/11196493.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/mqtt-intro.html">https://www.runoob.com/w3cnote/mqtt-intro.html</a></p>
+<h3 id="1-MQTT协议特点"><a href="#1-MQTT协议特点" class="headerlink" title="1. MQTT协议特点"></a>1. <code>MQTT</code>协议特点</h3><p>MQTT是一个基于<strong>客户端-服务器</strong>的消息发布/订阅传输协议。MQTT协议是轻量、简单、开放和易于实现的，这些特点使它适用范围非常广泛。在很多情况下，包括受限的环境中，如：机器与机器（M2M）通信和物联网（IoT）。其在，通过卫星链路通信传感器、偶尔拨号的医疗设备、智能家居、及一些小型化设备中已广泛使用。</p>
+<p>MQTT协议当前版本为，2014年发布的<a target="_blank" rel="noopener" href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html">MQTT v3.1.1</a>。除标准版外，还有一个简化版<code>MQTT-SN</code>，该协议主要针对嵌入式设备，这些设备一般工作于百TCP/IP网络，如：ZigBee。</p>
+<p>MQTT协议运行在<a target="_blank" rel="noopener" href="http://itbilu.com/nodejs/core/VkcdcFq9.html#OSI">TCP/IP</a>或其他网络协议，提供有序、无损、双向连接。其特点包括：</p>
+<ol>
+<li><p>使用的发布/订阅消息模式，它提供了一对多消息分发，以实现与应用程序的解耦。</p>
+</li>
+<li><p>对负载内容屏蔽的消息传输机制。</p>
+</li>
+<li><p>对传输消息有三种服务质量（QoS）：</p>
+</li>
+<li><ul>
+<li><code>最多一次</code>，这一级别会发生消息丢失或重复，消息发布依赖于底层TCP/IP网络。即：&lt;=1</li>
+<li><code>至多一次</code>，这一级别会确保消息到达，但消息可能会重复。即：&gt;=1</li>
+<li><code>只有一次</code>，确保消息只有一次到达。即：＝1。在一些要求比较严格的计费系统中，可以使用此级别</li>
 </ul>
-<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
-    // See https<span class="token operator">:</span>//go.microsoft.com/fwlink/?LinkId=<span class="token number">733558</span>
-    // for the documentation about the tasks.json format
-    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"2.0.0"</span><span class="token punctuation">,</span>
-    <span class="token property">"tasks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"build app"</span><span class="token punctuation">,</span> // f5
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8"</span><span class="token punctuation">,</span>
-            <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"build"</span><span class="token punctuation">,</span>
-                <span class="token property">"isDefault"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"flash app"</span><span class="token punctuation">,</span> // f6
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make -j8 flash"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"monitor"</span><span class="token punctuation">,</span> // f7
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make monitor"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"clean app"</span><span class="token punctuation">,</span> // f8
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make clean"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span><span class="token punctuation">,</span> // f9
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make erase_flash"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span><span class="token punctuation">,</span> // f10
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"shell"</span><span class="token punctuation">,</span>
-            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"cd ${fileDirname} &amp;&amp; cd ../ &amp;&amp; make menuconfig"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">]</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>任务配置步骤如下所示</strong>：</p>
-<img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-1.gif" alt="vscode-esp32-1" style="zoom:100%;">
-
-
-
-<h3 id="Step2：增-加快捷键"><a href="#Step2：增-加快捷键" class="headerlink" title="Step2：增%加快捷键"></a>Step2：增%加快捷键</h3><ul>
-<li><p>按下：<code>Ctrl+Shift+P</code> </p>
 </li>
-<li><p>键入 <code>Preferences:Open Keyboard Shortcuts(JSON)</code></p>
+<li><p>数据传输和协议交换的最小化（协议头部只有2字节），以减少网络流量</p>
 </li>
-<li><p>填充如下参数</p>
-<pre class="line-numbers language-json"><code class="language-json">// Override key bindings by placing them into your key bindings file.
-<span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f5"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"build app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f6"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"flash app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f7"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"monitor"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f8"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"clean app"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f9"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"erase flash"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-        <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"f10"</span><span class="token punctuation">,</span>
-        <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"workbench.action.tasks.runTask"</span><span class="token punctuation">,</span>
-        <span class="token property">"args"</span><span class="token operator">:</span> <span class="token string">"menuconfig"</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>于是，我们就可以对所选工程进行快捷键开发：</p>
+<li><p>通知机制，异常中断时通知传输双方</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-MQTT协议原理"><a href="#2-MQTT协议原理" class="headerlink" title="2. MQTT协议原理"></a>2. <code>MQTT</code>协议原理</h3><h4 id="2-1-MQTT协议实现方式"><a href="#2-1-MQTT协议实现方式" class="headerlink" title="2.1 MQTT协议实现方式"></a>2.1 <code>MQTT</code>协议实现方式</h4><p>   <img src="https://itbilu.com/upload/2016/1/9/14523188625918865.png" alt="img"></p>
+<ul>
+<li><p>实现<code>MQTT</code>协议需要：<code>客户端</code>和<code>服务器端</code></p>
+</li>
+<li><p><code>MQTT</code>协议中有三种身份：<code>发布者（Publish）</code>、<code>代理（Broker）</code>（服务器）、<code>订阅者（Subscribe）</code>。其中，消息的<code>发布者</code>和<code>订阅者</code>都是客户端，消息<code>代理</code>是服务器，消息<code>发布者</code>可以同时是<code>订阅者</code>。</p>
+</li>
+<li><pre><code>MQTT</code></pre>
+<p>传输的消息分为：</p>
+<pre><code>主题（Topic）</code></pre>
+<p>和</p>
+<pre><code>负载（payload）</code></pre>
+<p>两部分</p>
+<ul>
+<li><code>Topic</code>，可以理解为消息的类型，<code>订阅者</code>订阅（Subscribe）后，就会收到该主题的消息内容（<code>payload</code>）</li>
+<li><code>payload</code>，可以理解为消息的内容，是指<code>订阅者</code>具体要使用的内容</li>
+</ul>
 </li>
 </ul>
-<table>
-<thead>
-<tr>
-<th align="center">快捷键</th>
-<th align="center">执行的命令</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">F5</td>
-<td align="center"><code>make -j8</code></td>
-<td align="center">编译</td>
-</tr>
-<tr>
-<td align="center">F6</td>
-<td align="center"><code>make -j8 flash</code></td>
-<td align="center">编译、下载</td>
-</tr>
-<tr>
-<td align="center">F7</td>
-<td align="center"><code>make monitor</code></td>
-<td align="center">监视器</td>
-</tr>
-<tr>
-<td align="center">F8</td>
-<td align="center"><code>make clean</code></td>
-<td align="center">清除编译</td>
-</tr>
-<tr>
-<td align="center">F9</td>
-<td align="center"><code>make erase_flash</code></td>
-<td align="center">擦除 flash</td>
-</tr>
-<tr>
-<td align="center">F10</td>
-<td align="center"><code>make menuconfig</code></td>
-<td align="center">打开 menuconfig</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>NOTE: 这些命令都应该在工程的 <code>main</code> 目录下的文件中执行，例如： 在 VS Code 中打开了 hello_world 工程中 main 目录下的 <code>hello_world_main.c</code> 文件，可以按快捷键 <code>F6</code> 进行编译、下载。暂不支持在其他目录下进行。</p>
-</blockquote>
-<p>详细配置过程：</p>
-<img src="/home/fangsiyuan/Videos/Peek/vscode-esp32-2.gif" alt="vscode-esp32-2" style="zoom:100%;">
+<h4 id="2-2-网络传输与应用消息"><a href="#2-2-网络传输与应用消息" class="headerlink" title="2.2 网络传输与应用消息"></a>2.2 网络传输与应用消息</h4><p>   <code>MQTT</code>会构建底层网络传输：它将建立客户端到服务器的连接，提供两者之间的一个有序的、无损的、基于字节流的双向传输。</p>
+<p>   当应用数据通过<code>MQTT</code>网络发送时，<code>MQTT</code>会把与之相关的服务质量（QoS）和主题名（Topic）相关连。</p>
+<h4 id="2-3-MQTT客户端"><a href="#2-3-MQTT客户端" class="headerlink" title="2.3 MQTT客户端"></a>2.3 <code>MQTT</code>客户端</h4><p>   一个使用<code>MQTT</code>协议的应用程序或者设备，它总是建立到服务器的网络连接。客户端可以：</p>
+<ul>
+<li>发布其他客户端可能会订阅的信息</li>
+<li>订阅其它客户端发布的消息</li>
+<li>退订或删除应用程序的消息</li>
+<li>断开与服务器连接</li>
+</ul>
+<h4 id="2-4-MQTT服务器"><a href="#2-4-MQTT服务器" class="headerlink" title="2.4 MQTT服务器"></a>2.4 <code>MQTT</code>服务器</h4><p>   <code>MQTT</code>服务器以称为“消息代理”（Broker），可以是一个应用程序或一台设备。它是位于消息<code>发布者</code>和<code>订阅者</code>之间，它可以：</p>
+<ul>
+<li>接受来自客户的网络连接</li>
+<li>接受客户发布的应用信息</li>
+<li>处理来自客户端的订阅和退订请求</li>
+<li>向订阅的客户转发应用程序消息</li>
+</ul>
+<h4 id="2-5-MQTT协议中的订阅、主题、会话"><a href="#2-5-MQTT协议中的订阅、主题、会话" class="headerlink" title="2.5 MQTT协议中的订阅、主题、会话"></a>2.5 <code>MQTT</code>协议中的订阅、主题、会话</h4><p>   <strong>订阅（Subscription）</strong></p>
+<p>   订阅包含主题筛选器（Topic Filter）和最大服务质量（QoS）。订阅会与一个会话（Session）关联。一个会话可以包含多个订阅。每一个会话中的每个订阅都有一个不同的主题筛选器。</p>
+<p>   <strong>会话（Session）</strong></p>
+<p>   每个客户端与服务器建立连接后就是一个会话，客户端和服务器之间有状态交互。会话存在于一个网络之间，也可能在客户端和服务器之间跨越多个连续的网络连接。</p>
+<p>   <strong>主题名（Topic Name）</strong></p>
+<p>   连接到一个应用程序消息的标签，该标签与服务器的订阅相匹配。服务器会将消息发送给订阅所匹配标签的每个客户端。</p>
+<p>   <strong>主题筛选器（Topic Filter）</strong></p>
+<p>   一个对主题名通配符筛选器，在订阅表达式中使用，表示订阅所匹配到的多个主题。</p>
+<p>   <strong>负载（Payload）</strong></p>
+<p>   消息订阅者所具体接收的内容</p>
+<h4 id="2-6-MQTT协议中的方法"><a href="#2-6-MQTT协议中的方法" class="headerlink" title="2.6 MQTT协议中的方法"></a>2.6 <code>MQTT</code>协议中的方法</h4><p>   <code>MQTT</code>协议中定义了一些方法（也被称为动作）， 来于表示对确定资源所进行操作。 这个资源可以代表预先存在的数据或动态生成数据，这取决于服务器的实现。通常来说，资源指服务器上的文件或输出。</p>
+<p>   <strong>Connect</strong>，等待与服务器建立连接</p>
+<p>   <strong>Disconnect</strong>，等待<code>MQTT</code>客户端完成所做的工作，并与服务器断开TCP/IP会话</p>
+<p>   <strong>Subscribe</strong>，等待完成订阅</p>
+<p>   <strong>UnSubscribe</strong>，等待服务器取消客户端的一个或多个<code>topics</code>订阅</p>
+<p>   <strong>Publish</strong>，<code>MQTT</code>客户端发送消息请求，发送完成后返回应用程序线程</p>
+<ol start="2">
+<li><p><strong>最小模式单片机除CPU外包含哪些部分？</strong></p>
+<p>晶振电路、复位电路</p>
+</li>
+<li><p><strong>嵌入式领域如何实现低功耗？</strong></p>
+<p>休眠模式的设定</p>
+</li>
+<li><p><strong>LoRa 与 NB-IoT最大的区别</strong></p>
+<p>NB-IoT 使用运营商提供的 1GHz 以下的授权频段</p>
+<p>LoRa 工作在 1GHz以下的非授权频段</p>
+</li>
+<li><p><strong>LoRa 通信的过程是怎样的？</strong></p>
+</li>
+<li><p><strong>STM32 实现示波器、信号源的工作原理是怎样的？频率、电流电压参数是？</strong></p>
+<p>系统硬件设计根据系统的功能需求 ，系统结构图如图 1所示，主要包括 ：信号输入接 口模块 、信号调理模块、数据采集及缓存模块、USB2．0通信模块等 ］。工作流程如下 ：系统通过 USB接 口接到主机上后获得 5V 电源，微控制器 STM32对硬件设备进行初始化，并通过内部 USB硬件控制器来完成 USB设备的枚举工作。A／D转换器是通过定时器来触发采样的，以保证其 以恒定 的时间 间隔对模 拟信号进行模 数转换 ，在完成规定长度的采集工作之后 ，将数据存入高速数据存储器中（RAM）。在规定的触发条件满足时，数据采集系统中的控制电路使能 DMA通道 ，将 A／D所 采集 的数据 传输 至 USB的缓 冲 区 中，由 USB接 口电路将这些数据传输给上位机。</p>
+<p><img src="http://www.elecfans.com/uploads/allimg/170411/2474215-1F411113P6200.png" alt="基于STM32的虚拟示波器的设计与实现"></p>
+<p>信号输入及调理模块主要完成信号衰减 ，程控放大，叠加直流分量。衰减电路是为了保证在较大的信号输入时，能够在 A／D采样 的范围之内，避免 回显时造成信号的失真或是损坏元器件。程控放大电路是将待测的小信号进行放大，曲模拟开关 CD4051、运放 NE5532和可变电阻器构成 ，并通过 MCU切换放大倍数，电路如 图 2所示 。数 据采集 及缓存 模块 和 USB2．0通信模块是 由微控制器 STM32F103x独 自实现的。由于 MCU内部 自带的 A／D无法对负电压进行采集，而待测信号往往又带有负压，这时需要电路将负压抬高到 0电平以上，如图 3所示。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </p>
+</li>
+<li><p><strong>LabView 常见工作流程</strong></p>
+</li>
+<li><p><strong>看懂电路！！！！！！</strong></p>
+</li>
+<li><p><strong>OSI模型是什么，能具体说说每一层对应什么？</strong></p>
+</li>
+</ol>
+<ul>
+<li><p>OSI: open system interconnection 开放式系统互联参考模型</p>
+</li>
+<li><p>OSI 和TCP/IP 的对应关系和协议</p>
+<p><img src="https://pic1.zhimg.com/80/v2-2d62ba265be486cb94ab531912aa3b9c_1440w.jpg" alt="img"></p>
+<p>OSI模型各层的基本作用</p>
+<p><img src="https://pic2.zhimg.com/80/v2-436927a69a3574532059a78623d3095d_1440w.jpg" alt="img"></p>
+</li>
+<li><p>OSI模型的详解（但是对会话层、表示层、应用层合并为TCP/IP的应用层）</p>
+</li>
+<li><p>大纲</p>
+<p><img src="https://pic4.zhimg.com/80/v2-5ce0438c1e2c59840286b124fc70dd67_1440w.jpg" alt="img"></p>
+</li>
+</ul>
+<ul>
+<li><p>物理层</p>
+<p><img src="https://pic1.zhimg.com/80/v2-343093645638ea0839b71db5eba1f7c0_1440w.jpg" alt="img"></p>
+</li>
+<li><p>数据链路层</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fb8534d86e40986e43449de6c35ebd14_1440w.jpg" alt="img"></p>
+</li>
+<li><p>网络层</p>
+<p><img src="https://pic4.zhimg.com/80/v2-991572825990575d273f653a78bcc5e7_1440w.jpg" alt="img"></p>
+</li>
+<li><p>传输层</p>
+<p><img src="https://pic2.zhimg.com/80/v2-31bff54e0720487afe37e5f3f282d231_1440w.jpg" alt="img"></p>
+</li>
+<li><p>应用层</p>
+<p><img src="https://pic2.zhimg.com/80/v2-741e4cd7f95897d6a61bd219e208f1c1_1440w.jpg" alt="img"></p>
+</li>
+<li><p>以下为补充内容，可以帮助理解</p>
+</li>
+</ul>
+<ul>
+<li><p>pc连网的设置详解</p>
+<p><img src="https://pic4.zhimg.com/80/v2-b09a3718e0501f053b6ed418b087211b_1440w.jpg" alt="img"></p>
+</li>
+<li><p>数据链路层数据包（以太网数据包）格式，除了应用层没有头部，其他都有</p>
+<p><img src="https://pic2.zhimg.com/80/v2-3c8ab7e3f330238821adedea31b9c321_1440w.jpg" alt="img"></p>
+</li>
+<li><p>由于以太网数据包的数据部分，最大长度为1500字节，当IP包过大时，会分割下来，但是每个分割包的头部都一样</p>
+<p><img src="https://pic1.zhimg.com/80/v2-5ce2810c5f0ed99ad92d7d3a43cc652c_1440w.jpg" alt="img"></p>
+<p>数据包在传送时的封装和解封装如下所示</p>
+<p><img src="https://pic3.zhimg.com/80/v2-80430dbb37a1e42315a77e30448b34b2_1440w.jpg" alt="img"></p>
+</li>
+</ul>
+<ol start="10">
+<li><p><strong>能深入聊聊RTOS、物联网操作系统吗</strong></p>
+</li>
+<li><p><strong>GPIO、I2C、I2S 原理</strong></p>
+</li>
+</ol>
+
             </div>
             <hr/>
 
@@ -616,7 +646,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://fanzidanzhidi.github.io/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/">https://fanzidanzhidi.github.io/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%BF%E7%94%A8VS%20Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BC%80%E5%8F%91ESP32/</a>
+                    <a href="https://fanzidanzhidi.github.io/2021/01/22/%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/">https://fanzidanzhidi.github.io/2021/01/22/%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -653,11 +683,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/ESP/">
-                                    <span class="chip bg-color">ESP</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -701,13 +727,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/22/esp%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/">
+                <a href="/2021/01/22/Awesome-%E7%89%A9%E8%81%94%E7%BD%91/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="ESP学习笔记（四）">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">ESP学习笔记（四）</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,27 +744,15 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/ESP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    ESP学习笔记
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            zzk-fsy
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/ESP/">
-                        <span class="chip bg-color">ESP</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -750,13 +764,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/21/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
+                <a href="/2021/01/22/Linux%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Ubuntu%E5%A5%BD%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%88%86%E4%BA%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Linux指令学习">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">Linux指令学习</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -767,27 +781,15 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Ubuntu-Github%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    Ubuntu&Github入门学习
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            zzk-fsy
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                 </div>
                 
             </div>
